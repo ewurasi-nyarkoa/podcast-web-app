@@ -1,0 +1,56 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <div class="header-content">
+
+    <div class="brand" routerLink="/">
+      <mat-icon>radio</mat-icon>
+      <span class="brand-text">PodcastApp</span>
+    </div>
+
+    <nav class="desktop-nav">
+      <a mat-button routerLink="/episodes" routerLinkActive="active">Episodes</a>
+      <a mat-button routerLink="/playlists" routerLinkActive="active">Playlists</a>
+      <a mat-button routerLink="/confessions" routerLinkActive="active">Confessions</a>
+      <a mat-button routerLink="/team" routerLinkActive="active">Team</a>
+    </nav>
+
+
+    <div class="header-actions">
+
+      <app-theme-toggle></app-theme-toggle>
+      
+    
+      <a mat-button routerLink="/admin/login" class="login-btn">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admin
+      </a>
+
+      <button mat-icon-button class="mobile-menu" [matMenuTriggerFor]="mobileMenu">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<mat-menu #mobileMenu="matMenu" class="mobile-menu-panel">
+  <a mat-menu-item routerLink="/episodes">
+    <mat-icon>headphones</mat-icon>
+    Episodes
+  </a>
+  <a mat-menu-item routerLink="/playlists">
+    <mat-icon>playlist_play</mat-icon>
+    Playlists
+  </a>
+  <a mat-menu-item routerLink="/confessions">
+    <mat-icon>message</mat-icon>
+    Confessions
+  </a>
+  <a mat-menu-item routerLink="/team">
+    <mat-icon>group</mat-icon>
+    Team
+  </a>
+  <mat-divider></mat-divider>
+  <a mat-menu-item routerLink="/admin/login">
+    <mat-icon>admin_panel_settings</mat-icon>
+    Admin Login
+  </a>
+</mat-menu>

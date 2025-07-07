@@ -1,1 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Responsive breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$large: 1200px;
+
+html, body { 
+  height: 100%; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+// Light theme (default)
+body.light-theme {
+  background-color: #fafafa;
+  color: #333;
+}
+
+// Dark theme
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+  
+  // Override Material components for dark theme
+  .mat-mdc-card {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+  }
+  
+  .mat-mdc-form-field {
+    color: #ffffff !important;
+  }
+}
+
+// Responsive utilities
+@media (max-width: #{$mobile}) {
+  .hide-mobile { display: none !important; }
+}
+
+@media (max-width: #{$tablet}) {
+  .hide-tablet { display: none !important; }
+}
+
+@media (min-width: #{$tablet + 1}) {
+  .hide-desktop { display: none !important; }
+}
+
+// Container utilities
+.container {
+  max-width: $large;
+  margin: 0 auto;
+  padding: 0 16px;
+  
+  @media (max-width: #{$tablet}) {
+    padding: 0 12px;
+  }
+  
+  @media (max-width: #{$mobile}) {
+    padding: 0 8px;
+  }
+}
