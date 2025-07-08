@@ -1,7 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ThemeService } from '../../../core/services/theme/theme.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-theme-toggle',
@@ -14,32 +16,25 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './theme-toggle.component.html',
   styleUrl: './theme-toggle.component.scss'
 })
-export class ThemeToggleComponent {
-  isDarkMode = signal(false);
-
-  toggleTheme() {
-    this.isDarkMode.update(current => !current);
-
-    if (this.isDarkMode()) {
-      document.body.classList.add('dark-theme');
-      document.body.classList.remove('light-theme');
-    } else {
-      document.body.classList.add('light-theme');
-      document.body.classList.remove('dark-theme');
-    }
-    
-
-    localStorage.setItem('theme', this.isDarkMode() ? 'dark' : 'light');
-  }
+export class ThemeToggleComponent implements OnInit, OnDestroy {
+  private themeService = inject(ThemeService);
+  private subscription = new Subscription();
+  
+  isDarkMode = false;
 
   ngOnInit() {
+    this.subscription.add(
+      this.themeService.theme$.subscribe(theme => {
+        this.isDarkMode = theme === 'dark';
+      })
+    );
+  }
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      this.isDarkMode.set(true);
-      document.body.classList.add('dark-theme');
-    } else {
-      document.body.classList.add('light-theme');
-    }
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
