@@ -47,11 +47,13 @@ export class LoginComponent {
       this.isLoading = true;
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
+          console.log('Login response:', response);
+          console.log('Token stored:', this.authService.getToken());
           this.snackBar.open('Login successful!', 'Close', {
             duration: 3000,
             panelClass: ['success-snackbar']
           });
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin']);
         },
         error: (error) => {
           this.snackBar.open('Login failed. Please check your credentials.', 'Close', {

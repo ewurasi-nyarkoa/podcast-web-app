@@ -17,15 +17,21 @@ export class ConfessionService {
 
   constructor() {}
 
-  fecthConfessions(): void {
+  fetchConfessions(): void {
     this.http
-      .get<confession[]>(`${this.apiUrl}/v1/confessions`)
+      .get<any>(`${this.apiUrl}/v1/confessions`)
       .pipe(
         retry(3), 
         catchError((error) => this.errorHandlingService.handleHttpError(error))
       )
-      .subscribe((confessions) => {
-        this.confessionsSubject.next(confessions);
+      .subscribe((response) => {
+        const confessions = response.data || response;
+
+        const processedConfessions = confessions.map((conf: any) => ({
+          ...conf,
+          is_approved: conf.is_approved === true || conf.is_approved === 1
+        }));
+        this.confessionsSubject.next(processedConfessions);
       });
   }
 
@@ -34,14 +40,62 @@ export class ConfessionService {
   }
 
   submitConfession(confession: {message: string; category: string; emotion: string; }): Observable<confession> {
+    const confessionData = {
+      ...confession,
+      is_approved: false 
+    };
+    
     return this.http
-      .post<confession>(`${this.apiUrl}/v1/confessions`, confession)
+      .post<any>(`${this.apiUrl}/v1/confessions`, confessionData)
       .pipe(
         retry(3),
         catchError((error) => this.errorHandlingService.handleHttpError(error)),
-        tap((newConfession) => {
+        tap((response) => {
+          this.fetchConfessions();
+        }),
+        map(response => response.data || response)
+      );
+  }
+
+  getConfessionById(id: number): Observable<confession> {
+    return this.http
+      .get<any>(`${this.apiUrl}/v1/confessions/${id}`)
+      .pipe(
+        retry(3),
+        catchError((error) => this.errorHandlingService.handleHttpError(error)),
+        map(response => response.data || response)
+      );
+  }
+
+  updateConfessionStatus(id: number, isApproved: boolean): Observable<confession> {
+    return this.http
+      .patch<any>(`${this.apiUrl}/v1/confessions/${id}`, { is_approved: isApproved })
+      .pipe(
+        retry(3),
+        catchError((error) => this.errorHandlingService.handleHttpError(error)),
+        tap(() => {
+          // Update local state
           const currentConfessions = this.confessionsSubject.getValue();
-          this.confessionsSubject.next([...currentConfessions, newConfession]);
+          const updatedConfessions = currentConfessions.map(conf => 
+            conf.id === id ? { ...conf, is_approved: isApproved } : conf
+          );
+          this.confessionsSubject.next(updatedConfessions);
+        }),
+        map(response => response.data || response)
+      );
+  }
+
+  deleteConfession(id: number): Observable<any> {
+    return this.http
+      .delete(`${this.apiUrl}/v1/confessions/${id}`)
+      .pipe(
+        retry(3),
+        catchError((error) => this.errorHandlingService.handleHttpError(error)),
+        tap(() => {
+          // Remove from local state
+          const currentConfessions = this.confessionsSubject.getValue();
+          const filteredConfessions = currentConfessions.filter(conf => conf.id !== id);
+          this.confessionsSubject.next(filteredConfessions);
         })
       );
   }

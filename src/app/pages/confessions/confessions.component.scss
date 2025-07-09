@@ -1,0 +1,156 @@
+.confession-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.confession-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.confession-header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.confession-header h1 {
+  color: #1976d2;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+
+.confession-header p {
+  color: #666;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.confession-card {
+  padding: 20px;
+}
+
+mat-card-header {
+  margin-bottom: 20px;
+}
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1976d2;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  height: 56px;
+  font-size: 16px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.privacy-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #f5f5f5;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #4caf50;
+}
+
+.privacy-notice mat-icon {
+  color: #4caf50;
+  margin-top: 2px;
+}
+
+.privacy-notice p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.info-card {
+  text-align: center;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.info-card mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #1976d2;
+  margin-bottom: 12px;
+}
+
+.info-card h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.info-card p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .confession-container {
+    padding: 16px;
+  }
+  
+  .confession-header h1 {
+    font-size: 2rem;
+  }
+  
+  .confession-card {
+    padding: 16px;
+  }
+  
+  .info-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Global snackbar styles
+:host ::ng-deep .success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+:host ::ng-deep .error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+// Form styling
+textarea.mat-mdc-input-element {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.mat-mdc-form-field-hint-wrapper {
+  padding-top: 8px;
+}
