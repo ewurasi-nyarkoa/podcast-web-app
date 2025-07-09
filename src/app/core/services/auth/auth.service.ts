@@ -28,18 +28,22 @@ export class AuthService {
   }
 
   login(credentials: UserLoginCredentials): Observable<LoginSuccessResponse> {
-    return this.http.post<LoginSuccessResponse>(`${this.BASE_URL}/v1/login`, credentials).pipe(
+    return this.http.post<any>(`${this.BASE_URL}/v1/login`, credentials).pipe(
       tap((response) => {
-        localStorage.setItem(this.TOKEN_KEY, response.access_token);
+     
+        const token = response.data?.token || response.access_token;
+        localStorage.setItem(this.TOKEN_KEY, token);
         this.isAuthenticatedSubject.next(true);
       }),
       catchError((error)=> this.errorHandlingService.handleHttpError(error) )
     );
   }
 
-  register(credentials: UserRegisterCredentials): Observable<RegisterSuccessResponse> {
-    return this.http.post<RegisterSuccessResponse>(`${this.BASE_URL}/v1/register`, credentials).pipe(
-      tap((response) => response),
+  register(credentials: UserRegisterCredentials): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}/v1/register`, credentials).pipe(
+      tap((response) => {
+        console.log('Register response:', response);
+      }),
       catchError((error)=> this.errorHandlingService.handleHttpError(error) )
     );
   }

@@ -7,13 +7,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 const authService = inject(AuthService);
 const token = authService.getToken();
 
+
 if (token) {
-    // Clone the request and add the Authorization header
+ 
     req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
       },
     });
+ 
+  } else {
+    console.log('Interceptor - No token found');
   }
 
   return next(req);

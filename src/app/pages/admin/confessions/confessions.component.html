@@ -1,0 +1,132 @@
+<div class="confessions-container">
+  <div class="dashboard-header">
+    <h1>Confessions Management</h1>
+    <p>Review and manage listener confessions</p>
+  </div>
+  
+  <mat-card class="confessions-card">
+    <div class="filters-header">
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search confessions...</mat-label>
+          <input matInput [(ngModel)]="searchTerm">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Filter by Status</mat-label>
+          <mat-select [(value)]="filterStatus">
+            <mat-option value="all">All Status</mat-option>
+            <mat-option value="pending">Pending</mat-option>
+            <mat-option value="approved">Approved</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="confessions-table">
+        <thead>
+          <tr>
+            <th (click)="handleSort('message')" class="sortable-header">
+              <div class="header-content">
+                <span>Title</span>
+                <mat-icon>unfold_more</mat-icon>
+              </div>
+            </th>
+            <th>Category</th>
+            <th (click)="handleSort('is_approved')" class="sortable-header">
+              <div class="header-content">
+                <span>Status</span>
+                <mat-icon>unfold_more</mat-icon>
+              </div>
+            </th>
+            <th (click)="handleSort('created_at')" class="sortable-header">
+              <div class="header-content">
+                <span>Submitted</span>
+                <mat-icon>unfold_more</mat-icon>
+              </div>
+            </th>
+            <th class="actions-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let confession of paginatedConfessions | async" class="table-row">
+            <td class="title-cell">
+              <div class="title-content">
+                <div class="title-text">{{confession.message.length > 60 ? (confession.message | slice:0:60) + '...' : confession.message}}</div>
+                <div class="content-preview">{{confession.message.length > 100 ? (confession.message | slice:0:100) + '...' : confession.message}}</div>
+              </div>
+            </td>
+            <td>
+              <span class="category-badge">{{confession.category}}</span>
+            </td>
+            <td>
+              <span class="status-badge" [class]="confession.is_approved ? 'approved' : 'pending'">
+                {{confession.is_approved ? 'Approved' : 'Pending'}}
+              </span>
+            </td>
+            <td class="date-cell">{{formatDate(confession.created_at)}}</td>
+            <td class="actions-cell">
+              <button mat-icon-button (click)="viewConfession(confession)" class="action-btn view-btn">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button *ngIf="!confession.is_approved" mat-icon-button (click)="approveConfession(confession)" class="action-btn approve-btn">
+                <mat-icon>check</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteConfession(confession)" class="action-btn delete-btn">
+                <mat-icon>close</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Showing {{(currentPage - 1) * itemsPerPage + 1}} to {{currentPage * itemsPerPage}} results
+      </div>
+      <div class="pagination-controls">
+        <button mat-icon-button [disabled]="currentPage === 1" (click)="currentPage = currentPage - 1">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="page-info">Page {{currentPage}} of {{totalPages | async}}</span>
+        <button mat-icon-button [disabled]="!(hasNextPage | async)" (click)="currentPage = currentPage + 1">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<div *ngIf="selectedConfession" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Confession Details</h2>
+      <button mat-icon-button (click)="closeModal()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="confession-details">
+        <h3>{{selectedConfession.message}}</h3>
+        <div class="confession-meta">
+          <span class="category-badge">{{selectedConfession.category}}</span>
+          <span class="emotion-badge">{{selectedConfession.emotion}}</span>
+        </div>
+        <div class="submission-date">
+          Submitted: {{formatDate(selectedConfession.created_at)}}
+        </div>
+      </div>
+      <div class="modal-actions" *ngIf="!selectedConfession.is_approved">
+        <button mat-raised-button color="primary" (click)="approveConfession(selectedConfession); closeModal()">
+          Approve
+        </button>
+        <button mat-raised-button color="warn" (click)="deleteConfession(selectedConfession); closeModal()">
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
