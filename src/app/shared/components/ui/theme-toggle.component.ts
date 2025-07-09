@@ -20,12 +20,12 @@ export class ThemeToggleComponent implements OnInit, OnDestroy {
   private themeService = inject(ThemeService);
   private subscription = new Subscription();
   
-  isDarkMode = false;
+  isLightMode = false;
 
   ngOnInit() {
     this.subscription.add(
       this.themeService.theme$.subscribe(theme => {
-        this.isDarkMode = theme === 'dark';
+        this.isLightMode = theme === 'light';
       })
     );
   }

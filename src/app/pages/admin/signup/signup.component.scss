@@ -75,6 +75,55 @@ mat-card-actions a:hover {
 }
 
 
+// Dark theme styles
+:host-context(.dark-theme) ::ng-deep {
+  .signup-container {
+    background: #1a1a1a;
+  }
+
+  .signup-content {
+    background: #2d2d2d;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .signup-image {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .signup-card {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  .mat-mdc-card-title {
+    color: white;
+  }
+
+  .mat-mdc-form-field {
+    color: white;
+  }
+
+  .mat-mdc-form-field .mat-mdc-input-element {
+    color: white;
+  }
+
+  .mat-mdc-form-field .mat-mdc-floating-label {
+    color: #ccc;
+  }
+
+  .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+    color: #0078d4;
+  }
+
+  mat-card-actions p {
+    color: #ccc;
+  }
+
+  mat-card-actions a {
+    color: #0078d4;
+  }
+}
+
 @media (max-width: 768px) {
   .signup-content {
     max-width: 400px;

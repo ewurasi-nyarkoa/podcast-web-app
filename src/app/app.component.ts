@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/layout/header.component';
 import { FooterComponent } from './shared/components/layout/footer.component';
@@ -15,4 +16,9 @@ import { FooterComponent } from './shared/components/layout/footer.component';
 })
 export class AppComponent {
   title = 'podcast-web-app';
+  constructor(public router: Router) {}
+
+  get showHeaderFooter(): boolean {
+    return !this.router.url.startsWith('/admin');
+  }
 }

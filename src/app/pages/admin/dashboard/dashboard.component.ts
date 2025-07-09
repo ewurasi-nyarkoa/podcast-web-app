@@ -18,6 +18,7 @@ import { ConfessionService } from '../../../core/services/confessions/confession
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { confession } from '../../../core/interfaces/confessions';
 import { Observable, map } from 'rxjs';
+import { ThemeToggleComponent } from '../../../shared/components/ui/theme-toggle.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +37,8 @@ import { Observable, map } from 'rxjs';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    FormsModule
+    FormsModule,
+    ThemeToggleComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
