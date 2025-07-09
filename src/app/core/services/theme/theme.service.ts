@@ -8,7 +8,7 @@ export type Theme = 'light' | 'dark';
 })
 export class ThemeService {
   private readonly THEME_KEY = 'app-theme';
-  private readonly DEFAULT_THEME: Theme = 'light';
+  private readonly DEFAULT_THEME: Theme = 'dark';
   
   private themeSubject = new BehaviorSubject<Theme>(this.getStoredTheme());
   theme$ = this.themeSubject.asObservable();
@@ -27,7 +27,7 @@ export class ThemeService {
   }
 
   toggleTheme(): void {
-    const newTheme: Theme = this.getCurrentTheme() === 'light' ? 'dark' : 'light';
+    const newTheme: Theme = this.getCurrentTheme() ==='dark' ? 'light'  : 'dark';
     this.setTheme(newTheme);
   }
 
@@ -42,7 +42,7 @@ export class ThemeService {
     document.body.classList.add(`${theme}-theme`);
   }
 
-  isDarkMode(): boolean {
-    return this.getCurrentTheme() === 'dark';
+  isLightMode(): boolean {
+    return this.getCurrentTheme() === 'light';
   }
 }

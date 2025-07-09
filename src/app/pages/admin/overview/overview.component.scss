@@ -1,0 +1,266 @@
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.dashboard-header p {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.stats-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.stats-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stats-info {
+  flex: 1;
+}
+
+.stats-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+.stats-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 4px 0;
+}
+
+.stats-trend {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.stats-trend.positive {
+  color: #4caf50;
+}
+
+.stats-trend.negative {
+  color: #f44336;
+}
+
+.stats-icon {
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-icon mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.stats-card.blue .stats-icon {
+  background: #deecf9;
+  color: #0078d4;
+}
+
+.stats-card.green .stats-icon {
+  background: #dff6dd;
+  color: #107c10;
+}
+
+.stats-card.purple .stats-icon {
+  background: #f2e7ff;
+  color: #5c2d91;
+}
+
+.stats-card.orange .stats-icon {
+  background: #fff4ce;
+  color: #ca5010;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.content-card {
+  height: fit-content;
+}
+
+.mat-mdc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+}
+
+.episode-item, .confession-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.episode-item:last-child, .confession-item:last-child {
+  border-bottom: none;
+}
+
+.episode-item {
+  display: flex;
+  gap: 16px;
+}
+
+.episode-thumbnail {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.episode-info h3, .confession-content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.episode-info p {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0 0 12px 0;
+}
+
+.episode-meta, .confession-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.episode-meta span, .confession-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.episode-meta mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.confession-content p {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0 0 12px 0;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+// Dark theme styles
+:host-context(.dark-theme) ::ng-deep {
+  .dashboard-header h1 {
+    color: white;
+  }
+
+  .dashboard-header p {
+    color: #ccc;
+  }
+
+  .stats-card {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  .stats-title {
+    color: #ccc;
+  }
+
+  .stats-value {
+    color: white;
+  }
+
+  .content-card {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  .episode-info h3, .confession-content h3 {
+    color: white;
+  }
+
+  .episode-info p {
+    color: #ccc;
+  }
+
+  .confession-content p {
+    color: #ccc;
+  }
+
+  .episode-meta, .confession-meta {
+    color: #ccc;
+  }
+
+  .confession-date {
+    color: #ccc;
+  }
+
+  .no-data {
+    color: #ccc;
+  }
+
+  .mat-mdc-card {
+    background: #2d2d2d !important;
+    color: white !important;
+  }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .episode-item {
+    flex-direction: column;
+  }
+  
+  .episode-thumbnail {
+    width: 100%;
+    height: 120px;
+  }
+}

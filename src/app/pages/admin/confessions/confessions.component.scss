@@ -1,7 +1,8 @@
 .confessions-container {
-  padding: 24px;
+  padding: 15px;
   max-width: 1400px;
   margin: 0 auto;
+  background: var(--color-bg);
 }
 
 .dashboard-header {
@@ -11,23 +12,41 @@
 .dashboard-header h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: #333;
+  color: var(--color-text);
   margin: 0 0 8px 0;
 }
 
-.dashboard-header p {
-  color: #666;
-  font-size: 1.1rem;
-  margin: 0;
+// .dashboard-header p {
+//   color: var(--color-text-secondary);
+//   font-size: 1.1rem;
+//   margin: 0;
+// }
+
+// .confessions-card {
+//   margin-bottom: 24px;
+//   // background: var(--color-surface);
+//   // background-color: black !important;
+//   border-radius: 12px;
+//   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+//   border: 1px solid var(--color-border);
+// }
+
+.confessions-card.mat-card {
+  background: #fff !important;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid var(--color-border);
 }
 
-.confessions-card {
-  margin-bottom: 24px;
+:host-context(.dark-theme) .confessions-card.mat-card {
+  background: #2d2d2d !important;
+  color: white;
 }
 
 .filters-header {
   padding: 16px 24px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
+  background: #fff;
 }
 
 .search-container {
@@ -52,10 +71,11 @@
 .confessions-table {
   width: 100%;
   border-collapse: collapse;
+  background: var(--color-surface);
 }
 
 .confessions-table thead {
-  background: #f8f9fa;
+  background: #fff;
 }
 
 .confessions-table th {
@@ -63,10 +83,10 @@
   text-align: left;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #666;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .sortable-header {
@@ -75,7 +95,7 @@
 }
 
 .sortable-header:hover {
-  color: #0078d4;
+  color: var(--color-primary);
 }
 
 .header-content {
@@ -95,17 +115,18 @@
 }
 
 .table-row {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
   transition: background-color 0.2s ease;
 }
 
 .table-row:hover {
-  background: #f8f9fa;
+  background: var(--color-surface-alt);
 }
 
 .confessions-table td {
   padding: 16px 24px;
   vertical-align: middle;
+  color: var(--color-text);
 }
 
 .title-cell {
@@ -120,13 +141,13 @@
 
 .title-text {
   font-weight: 500;
-  color: #333;
+  color: var(--color-text);
   font-size: 0.875rem;
 }
 
 .content-preview {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--color-text-secondary);
   line-height: 1.4;
 }
 
@@ -134,8 +155,8 @@
   display: inline-flex;
   align-items: center;
   padding: 4px 12px;
-  background: #deecf9;
-  color: #0078d4;
+  background: var(--color-muted);
+  color: var(--color-primary);
   border-radius: 16px;
   font-size: 0.75rem;
   font-weight: 500;
@@ -151,18 +172,18 @@
 }
 
 .status-badge.pending {
-  background: #fff4ce;
-  color: #ca5010;
+  background: var(--color-warning);
+  color: var(--color-primary-contrast);
 }
 
 .status-badge.approved {
-  background: #dff6dd;
-  color: #107c10;
+  background: var(--color-success);
+  color: var(--color-primary-contrast);
 }
 
 .date-cell {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .actions-cell {
@@ -176,15 +197,15 @@
 }
 
 .view-btn {
-  color: #0078d4;
+  color: var(--color-primary);
 }
 
 .approve-btn {
-  color: #107c10;
+  color: var(--color-success);
 }
 
 .delete-btn {
-  color: #d13438;
+  color: var(--color-danger);
 }
 
 .pagination-container {
@@ -192,12 +213,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--color-border);
+  background: #fff;
 }
 
 .pagination-info {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .pagination-controls {
@@ -294,6 +316,108 @@
   border-top: 1px solid #e0e0e0;
 }
 
+
+// Dark theme styles
+:host-context(.dark-theme) {
+  .confessions-container {
+    background: #1a1a1a;
+    color: white;
+  }
+
+  .dashboard-header h1 {
+    color: white;
+  }
+
+  .dashboard-header p {
+    color: #ccc;
+  }
+
+  .confessions-card {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  .filters-header {
+    background: #2d2d2d;
+    border-bottom: 1px solid #444;
+  }
+
+  .mat-mdc-form-field {
+    background: #2d2d2d;
+  }
+
+  .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+    background: #2d2d2d;
+  }
+
+  .confessions-table {
+    background: #2d2d2d;
+  }
+
+  .confessions-table thead {
+    background: #333;
+  }
+
+  .confessions-table th {
+    color: #ccc;
+    border-bottom: 1px solid #444;
+  }
+
+  .table-row {
+    border-bottom: 1px solid #444;
+  }
+
+  .table-row:hover {
+    background: #333;
+  }
+
+  .title-text {
+    color: white;
+  }
+
+  .content-preview {
+    color: #ccc;
+  }
+
+  .date-cell {
+    color: #ccc;
+  }
+
+  .pagination-container {
+    background: #2d2d2d;
+    border-top: 1px solid #444;
+  }
+
+  .pagination-info,
+  .page-info {
+    color: #ccc;
+  }
+
+  .modal-content {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #444;
+  }
+
+  .modal-header h2 {
+    color: white;
+  }
+
+  .confession-details h3 {
+    color: white;
+  }
+
+  .submission-date {
+    color: #ccc;
+  }
+
+  .modal-actions {
+    border-top: 1px solid #444;
+  }
+}
 
 @media (max-width: 768px) {
   .confessions-container {

@@ -115,6 +115,70 @@ mat-card-title {
   font-size: 0.9rem;
 }
 
+// Dark theme styles
+:host-context(.dark-theme) {
+  .confession-container {
+    background: #1a1a1a;
+    color: white;
+  }
+
+  .confession-header h1 {
+    color: white;
+  }
+
+  .confession-header p {
+    color: #ccc;
+  }
+
+  .confession-card {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  mat-card-title {
+    color: #0078d4;
+  }
+
+  .privacy-notice {
+    background: #333;
+    color: white;
+  }
+
+  .info-card {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    color: white;
+  }
+
+  .info-card h3 {
+    color: white;
+  }
+
+  .info-card p {
+    color: #ccc;
+  }
+
+  .mat-mdc-form-field {
+    color: white;
+  }
+
+  .mat-mdc-form-field .mat-mdc-input-element {
+    color: white;
+  }
+
+  .mat-mdc-form-field .mat-mdc-floating-label {
+    color: #ccc;
+  }
+
+  .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+    color: #0078d4;
+  }
+
+  .mat-mdc-select-value {
+    color: white;
+  }
+}
+
 // Mobile responsive
 @media (max-width: 768px) {
   .confession-container {
