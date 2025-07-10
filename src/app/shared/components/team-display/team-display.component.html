@@ -1,0 +1,60 @@
+<section class="team-section">
+  <div class="team-container">
+    <div class="team-section-header">
+      <h2>{{ title }}</h2>
+      <div class="header-actions">
+        <div *ngIf="enableCarousel" class="carousel-controls">
+          <button mat-icon-button 
+                  [disabled]="!canGoPrev" 
+                  (click)="prevSlide()" 
+                  class="carousel-btn prev-btn">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button mat-icon-button 
+                  [disabled]="!canGoNext" 
+                  (click)="nextSlide()" 
+                  class="carousel-btn next-btn">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+        <button *ngIf="showViewAllButton" mat-button routerLink="/team" class="view-all-btn">
+          View All Team
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="team-grid" [class.carousel-mode]="enableCarousel">
+      <div *ngFor="let member of currentSlideMembers" class="team-card">
+        <div class="team-avatar-container">
+          <img [src]="member.profile_image" 
+               [alt]="member.name" 
+               class="team-avatar"
+               (error)="onImageError($event, member)" />
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">{{ member.name }}</h3>
+          <p class="team-role">{{ member.role }}</p>
+          <p class="team-bio">{{ member.bio }}</p>
+          <div class="team-social" *ngIf="member.social_media_links?.length">
+            <a *ngFor="let social of member.social_media_links" 
+               [href]="social.url" 
+               target="_blank" 
+               class="social-link"
+               [title]="social.platform">
+              <mat-icon>link</mat-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="enableCarousel" class="carousel-indicators">
+      <button *ngFor="let slide of [].constructor(totalSlides); let i = index" 
+              class="indicator" 
+              [class.active]="i === currentSlide"
+              (click)="currentSlide = i">
+      </button>
+    </div>
+  </div>
+</section>
