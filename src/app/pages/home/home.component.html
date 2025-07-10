@@ -1,0 +1,20 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1>Welcome to Our Podcast</h1>
+      <p>Discover amazing stories, insights, and conversations that matter. Join our community of listeners and share your own confessions.</p>
+      <div class="hero-actions">
+        <button class="cta-button primary">Listen Now</button>
+        <button class="cta-button secondary" routerLink="/confessions">Share Your Story</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team Section - Carousel with 3 members per slide -->
+<app-team-display 
+  [enableCarousel]="true"
+  [showViewAllButton]="true"
+  title="Meet the Team">
+</app-team-display>

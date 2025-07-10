@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
@@ -14,10 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
-import { ConfessionService } from '../../../core/services/confessions/confession.service';
 import { AuthService } from '../../../core/services/auth/auth.service';
-import { confession } from '../../../core/interfaces/confessions';
-import { Observable, map } from 'rxjs';
 import { ThemeToggleComponent } from '../../../shared/components/ui/theme-toggle.component';
 
 @Component({
@@ -45,12 +42,15 @@ import { ThemeToggleComponent } from '../../../shared/components/ui/theme-toggle
 })
 export class DashboardComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
   
   isMobile = window.innerWidth <= 768;
   sidenavOpened = !this.isMobile;
 
   logout() {
-    this.authService.logout().subscribe();
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 
   toggleSidenav() {

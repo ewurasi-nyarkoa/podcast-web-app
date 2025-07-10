@@ -6,7 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { ConfessionService } from '../../../core/services/confessions/confession.service';
+import { TeamService } from '../../../core/services/team/team.service';
 import { confession } from '../../../core/interfaces/confessions';
+import { TeamMember } from '../../../core/interfaces/team';
 import { Observable } from 'rxjs';
 
 interface DashboardStats {
@@ -57,10 +59,13 @@ interface Confession {
 })
 export class OverviewComponent implements OnInit {
   private confessionService = inject(ConfessionService);
+  private teamService = inject(TeamService);
   
   confessions$: Observable<confession[]>;
+  teamMembers$: Observable<TeamMember[]>;
+  
   stats = {
-    totalEpisodes: 156,
+    totalTeams: 0,
     totalConfessions: 0,
     monthlyDownloads: 45780,
     pendingConfessions: 0
@@ -70,15 +75,21 @@ export class OverviewComponent implements OnInit {
 
   constructor() {
     this.confessions$ = this.confessionService.getConfessions();
+    this.teamMembers$ = this.teamService.getTeamMembers();
   }
 
   ngOnInit() {
     this.confessionService.fetchConfessions();
+    this.teamService.fetchTeamMembers();
     
     this.confessions$.subscribe(confessions => {
       this.stats.totalConfessions = confessions.length;
       this.stats.pendingConfessions = confessions.filter(c => !c.is_approved).length;
       this.recentConfessions = confessions.slice(0, 2);
+    });
+    
+    this.teamMembers$.subscribe(teamMembers => {
+      this.stats.totalTeams = teamMembers.length;
     });
   }
 
