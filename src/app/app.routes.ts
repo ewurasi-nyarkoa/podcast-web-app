@@ -15,6 +15,8 @@ export const routes: Routes = [
   { path: '', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent) },
   { path: 'episodes', component: EpisodesListComponent },
   { path: 'episodes/:id', component: EpisodeDetailsComponent },
+  { path: 'playlists', loadComponent: () => import('./pages/playlists/playlists.component').then(m => m.PlaylistsComponent) },
+  { path: 'playlists/:id', loadComponent: () => import('./pages/playlists/playlist-detail.component').then(m => m.PlaylistDetailComponent) },
   { path: 'team', loadComponent: () => import('./pages/team/team.component').then(m => m.TeamComponent) },
   { path: 'confessions', component: ConfessionsComponent },
   { path: 'admin/login', component: LoginComponent },
