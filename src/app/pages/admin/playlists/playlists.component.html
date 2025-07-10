@@ -1,0 +1,47 @@
+<div class="playlists-container">
+  <div class="header-section">
+    <h2>Playlist Management</h2>
+    <button mat-raised-button color="primary" (click)="openAddPlaylistDialog()">
+      <mat-icon>add</mat-icon>
+      Add Playlist
+    </button>
+  </div>
+
+  <div class="playlists-table">
+    <!-- <h3>Existing Playlists</h3> -->
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let playlist">{{ playlist.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let playlist">{{ playlist.description }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="episodeCount">
+        <th mat-header-cell *matHeaderCellDef>Episodes</th>
+        <td mat-cell *matCellDef="let playlist">{{ getEpisodeCount(playlist) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let playlist">
+          <button mat-icon-button color="accent" (click)="openAddEpisodesDialog(playlist)" title="Add Episodes">
+            <mat-icon>playlist_add</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" (click)="editPlaylist(playlist)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deletePlaylist(playlist.id!)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

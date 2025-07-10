@@ -1,0 +1,90 @@
+.playlists-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 30px;
+    color: #333;
+  }
+}
+
+.header-section{
+  display: flex;
+  justify-content: space-between;
+}
+// .playlist-form {
+//   background: #f9f9f9;
+//   padding: 20px;
+//   border-radius: 8px;
+//   margin-bottom: 30px;
+
+//   h3 {
+//     margin-bottom: 20px;
+//     color: #555;
+//   }
+
+//   form {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 16px;
+
+//     mat-form-field {
+//       width: 100%;
+//     }
+//   }
+
+//   // .form-actions {
+//   //   display: flex;
+//   //   gap: 12px;
+//   //   margin-top: 16px;
+//   // }
+// }
+
+.playlists-table {
+  h3 {
+    margin-bottom: 16px;
+    color: #555;
+  }
+
+  table {
+    width: 100%;
+
+    th {
+      font-weight: 600;
+      color: #333;
+    }
+
+    td {
+      padding: 12px 8px;
+    }
+  }
+
+  .mat-column-actions {
+    width: 160px;
+    text-align: center;
+  }
+
+  .mat-column-episodeCount {
+    width: 100px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .playlists-container {
+    padding: 16px;
+  }
+
+  .playlist-form {
+    padding: 16px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+}
