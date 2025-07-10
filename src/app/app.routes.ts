@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-
-import { EpisodesListComponent } from './episodes-list/episodes-list.component';
-import { EpisodeDetailsComponent } from './episode-details/episode-details.component';
 import { LoginComponent } from './pages/admin/login/login.component';
 import { SignupComponent } from './pages/admin/signup/signup.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
