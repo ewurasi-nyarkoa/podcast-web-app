@@ -83,20 +83,13 @@
       </table>
     </div>
 
-    <div class="pagination-container">
-      <div class="pagination-info">
-        Showing {{(currentPage - 1) * itemsPerPage + 1}} to {{currentPage * itemsPerPage}} results
-      </div>
-      <div class="pagination-controls">
-        <button mat-icon-button [disabled]="currentPage === 1" (click)="currentPage = currentPage - 1">
-          <mat-icon>chevron_left</mat-icon>
-        </button>
-        <span class="page-info">Page {{currentPage}} of {{totalPages | async}}</span>
-        <button mat-icon-button [disabled]="!(hasNextPage | async)" (click)="currentPage = currentPage + 1">
-          <mat-icon>chevron_right</mat-icon>
-        </button>
-      </div>
-    </div>
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="(totalPages | async) || 1"
+      [itemsPerPage]="itemsPerPage"
+      [totalItems]="(filteredConfessions | async)?.length || 0"
+      (pageChange)="onPageChange($event)">
+    </app-pagination>
   </mat-card>
 </div>
 

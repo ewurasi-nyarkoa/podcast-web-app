@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ConfessionService } from '../../../core/services/confessions/confession.service';
 import { confession } from '../../../core/interfaces/confessions';
 import { Observable, map } from 'rxjs';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 
 @Component({
@@ -26,7 +27,8 @@ import { Observable, map } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    PaginationComponent
   ],
   templateUrl: './confessions.component.html',
   styleUrl: './confessions.component.scss'
@@ -151,5 +153,9 @@ export class ConfessionsComponent implements OnInit {
 
   formatDate(date: Date): string {
     return new Date(date).toLocaleDateString();
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
   }
 }

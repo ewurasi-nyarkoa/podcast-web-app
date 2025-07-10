@@ -27,6 +27,7 @@ export const routes: Routes = [
       { path: 'overview', loadComponent: () => import('./pages/admin/overview/overview.component').then(m => m.OverviewComponent) },
       { path: 'confessions', component: AdminConfessionsComponent },
       { path: 'episodes', loadComponent: () => import('./pages/admin/episodes/episodes.component').then(m => m.EpisodesComponent) },
+      { path: 'playlists', loadComponent: () => import('./pages/admin/playlists/playlists.component').then(m => m.PlaylistsComponent) },
       { path: 'teams', loadComponent: () => import('./pages/admin/team/team-management/team-management.component').then(m => m.TeamManagementComponent) }
     ]
   }
