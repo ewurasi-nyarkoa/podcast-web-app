@@ -3,9 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { EpisodesService } from '../core/services/episodes/episodes.service';
 import { AudioPlayerService } from '../core/services/audio-player/audio-player.service';
 import { Episode } from '../core/interfaces/episodes';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-episode-details',
+  imports: [CommonModule],
   templateUrl: './episode-details.component.html',
   styleUrls: ['./episode-details.component.scss']
 })

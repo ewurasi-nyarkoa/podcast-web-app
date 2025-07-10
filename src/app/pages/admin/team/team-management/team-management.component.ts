@@ -9,10 +9,11 @@ import { TeamMember, CreateTeamMemberRequest } from '../../../../core/interfaces
 import { Observable } from 'rxjs';
 import { TeamMemberDialogComponent } from '../team-member-dialog/team-member-dialog.component';
 
+
 @Component({
   selector: 'app-team-management',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, TeamMemberDialogComponent],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule],
   templateUrl: './team-management.component.html',
   styleUrl: './team-management.component.scss'
 })
