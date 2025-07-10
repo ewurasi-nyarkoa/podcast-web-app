@@ -1,0 +1,26 @@
+@if (episodesResponse) {
+  <div class="episodes-grid">
+    @for (episode of episodesResponse.data; track episode.id) {
+      <div class="episode-item">
+        <a [routerLink]="['/episodes', episode.id]">
+          <div class="album-art">
+            @if (episode.img_url) {
+              <img [src]="episode.img_url" alt="Album Art" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+            } @else {
+              <span>🎵</span>
+            }
+          </div>
+          <h3>{{ episode.title }}</h3>
+          <p>{{ episode.description }}</p>
+          <div class="episode-meta">
+            <span>{{ episode.duration }}</span>
+          </div>
+        </a>
+        <button class="play-btn" (click)="togglePlayPause(episode)">
+          <span *ngIf="isCurrentEpisodePlaying(episode); else playIcon">Pause</span>
+          <ng-template #playIcon>Play</ng-template>
+        </button>
+      </div>
+    }
+  </div>
+}

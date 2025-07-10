@@ -1,0 +1,69 @@
+// Spotify-inspired persistent audio player
+.audio-player {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: #181818;
+  color: #fff;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  min-height: 72px;
+  border-top: 1px solid #232323;
+}
+.audio-info {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.audio-controls button {
+  background: #1db954;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(30,215,96,0.15);
+}
+.audio-controls button:hover {
+  background: #1ed760;
+  transform: scale(1.08);
+}
+.audio-controls input[type="range"] {
+  width: 120px;
+  accent-color: #1db954;
+  background: transparent;
+  margin: 0 0.5rem;
+}
+@media (max-width: 700px) {
+  .audio-player {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 0.5rem;
+    min-height: 56px;
+  }
+  .audio-controls {
+    gap: 0.5rem;
+  }
+  .audio-controls input[type="range"] {
+    width: 80px;
+  }
+}

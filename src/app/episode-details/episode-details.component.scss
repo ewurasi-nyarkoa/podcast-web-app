@@ -1,0 +1,92 @@
+// Spotify-inspired episode details
+.episode-details-card {
+  background: #181818;
+  color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.episode-art {
+  width: 220px;
+  height: 220px;
+  background: #232323;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(30,215,96,0.10);
+}
+.episode-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.episode-meta {
+  color: #1db954;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+p {
+  color: #b3b3b3;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.play-btn {
+  background: #1db954;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(30,215,96,0.15);
+}
+.play-btn:hover {
+  background: #1ed760;
+  transform: scale(1.04);
+}
+audio {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.playlists {
+  background: #232323;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  color: #b3b3b3;
+  text-align: center;
+}
+@media (max-width: 700px) {
+  .episode-details-card {
+    padding: 1rem 0.5rem;
+    max-width: 100vw;
+    border-radius: 0;
+  }
+  .episode-art {
+    width: 100vw;
+    max-width: 320px;
+    height: 180px;
+    margin-bottom: 1rem;
+  }
+}
