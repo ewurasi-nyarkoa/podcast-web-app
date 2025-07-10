@@ -68,37 +68,50 @@
 <!-- Recent Content Grid -->
 <div class="content-grid">
   <!-- Recent Episodes -->
-  <mat-card class="content-card">
-    <mat-card-header>
-      <mat-card-title>Recent Episodes</mat-card-title>
-      <button mat-button color="primary">View All</button>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="episode-item">
-        <img src="assets/episode-placeholder.jpg" alt="Episode" class="episode-thumbnail">
-        <div class="episode-info">
-          <h3>The Art of Storytelling in Audio</h3>
-          <p>Exploring narrative techniques that captivate listeners</p>
-          <div class="episode-meta">
-            <span><mat-icon>download</mat-icon> 1,250 downloads</span>
-            <span><mat-icon>calendar_today</mat-icon> Jan 15, 2024</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="episode-item">
-        <img src="assets/episode-placeholder.jpg" alt="Episode" class="episode-thumbnail">
-        <div class="episode-info">
-          <h3>Behind the Microphone: Producer Stories</h3>
-          <p>Interviews with top podcast producers</p>
-          <div class="episode-meta">
-            <span><mat-icon>download</mat-icon> 980 downloads</span>
-            <span><mat-icon>calendar_today</mat-icon> Jan 12, 2024</span>
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <div class="episodes-table-container">
+    <div class="episodes-header">
+      <h2>Recent Episodes</h2>
+      <button mat-button color="primary" routerLink="/admin/episodes">View All</button>
+    </div>
+    
+    <div *ngIf="recentEpisodes.length > 0">
+      <table class="episodes-table">
+        <thead>
+          <tr>
+            <th>Episode</th>
+            <th>Duration</th>
+            <th>Posted</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let episode of recentEpisodes">
+            <td>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <img [src]="episode.img_url" [alt]="episode.title" width="50" height="50">
+                <div>
+                  <div style="font-weight: 600; margin-bottom: 4px;">{{ episode.title }}</div>
+                  <div style="font-size: 13px; color: var(--color-secondary);">Season {{ episode.season }}, Episode {{ episode.episode }}</div>
+                </div>
+              </div>
+            </td>
+            <td>{{ episode.duration }}</td>
+            <td>{{ episode.posted_on | date:'MMM d' }}</td>
+            <td>
+              <span class="status-badge" [class]="episode.archive ? 'in-process' : 'done'">
+                <span class="status-dot" [class]="episode.archive ? 'in-process-dot' : 'done-dot'"></span>
+                {{ episode.archive ? 'Archived' : 'Published' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div *ngIf="recentEpisodes.length === 0" class="no-data">
+      <p>No episodes yet</p>
+    </div>
+  </div>
 
   <!-- Recent Confessions -->
   <mat-card class="content-card">

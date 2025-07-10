@@ -1,0 +1,87 @@
+<div class="episodes-container">
+  <div class="episodes-table-container">
+    <h1>Episodes Management</h1>
+    
+ 
+    <div *ngIf="loading" class="skeleton-container">
+      <table class="episodes-table">
+        <thead>
+          <tr>
+            <th>Episode</th>
+            <th>Duration</th>
+            <th>Posted</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of [1,2,3,4,5]" class="skeleton-row">
+            <td>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="skeleton-image"></div>
+                <div class="skeleton-text skeleton-title"></div>
+              </div>
+            </td>
+            <td><div class="skeleton-text skeleton-duration"></div></td>
+            <td><div class="skeleton-text skeleton-date"></div></td>
+            <td><div class="skeleton-text skeleton-button"></div></td>
+            <td><div class="skeleton-text skeleton-button"></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-container">
+      <p>{{ error }}</p>
+      <button (click)="retryLoad()">Retry</button>
+    </div>
+
+    <!-- Episodes Table -->
+    <div *ngIf="!loading && !error">
+      <table class="episodes-table">
+        <thead>
+          <tr>
+            <th>Episode</th>
+            <th>Duration</th>
+            <th>Posted</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let episode of episodes$ | async">
+            <td>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <img [src]="episode.img_url" [alt]="episode.title" width="50" height="50">
+                <div>
+                  <div style="font-weight: 600; margin-bottom: 4px;">{{ episode.title }}</div>
+                  <div style="font-size: 13px; color: var(--color-secondary);">Season {{ episode.season }}, Episode {{ episode.episode }}</div>
+                </div>
+              </div>
+            </td>
+            <td>{{ episode.duration }}</td>
+            <td>{{ episode.posted_on }}</td>
+            <td>
+              <span class="status-badge" [class]="episode.archive ? 'in-process' : 'done'">
+                <span class="status-dot" [class]="episode.archive ? 'in-process-dot' : 'done-dot'"></span>
+                {{ episode.archive ? 'Archived' : 'Published' }}
+              </span>
+            </td>
+            <td>
+              <button 
+                class="audio-play-btn"
+                (click)="playPauseAudio(episode.audio_url, episode.id)"
+                [class.playing]="isPlaying(episode.id)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path *ngIf="!isPlaying(episode.id)" d="M8 5v14l11-7z"/>
+                  <path *ngIf="isPlaying(episode.id)" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
