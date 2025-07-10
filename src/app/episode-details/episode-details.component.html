@@ -1,0 +1,35 @@
+@if (loading) {
+  <div>Loading episode...</div>
+} @else if (error) {
+  <div>{{ error }}</div>
+} @else if (!loading && episode) {
+  <div class="episode-details-card">
+    <div class="episode-art">
+      @if (episode.img_url) {
+        <img [src]="episode.img_url" alt="Album Art" />
+      } @else {
+        <span style="font-size:4rem;color:#1db954;">🎵</span>
+      }
+    </div>
+    <h2>{{ episode.title }}</h2>
+    <div class="episode-meta">
+      <span>Duration: {{ episode.duration }}</span> &bull;
+      <span>Posted on: {{ episode.posted_on }}</span> &bull;
+      <span>Season: {{ episode.season }}, Episode: {{ episode.episode }}</span>
+    </div>
+    <p>{{ episode.description }}</p>
+    <button class="play-btn" (click)="togglePlayPause()">
+      <span *ngIf="isCurrentEpisodePlaying(); else playIcon">Pause</span>
+      <ng-template #playIcon>Play</ng-template>
+    </button>
+    <div class="progress-bar" *ngIf="isCurrentEpisode()">
+      <span>{{ formatTime(currentTime) }}</span>
+      <input type="range" min="0" [max]="duration" [value]="currentTime" (input)="seekFromInput($event)" />
+      <span>{{ formatTime(duration) }}</span>
+    </div>
+    <div class="playlists">
+      <h3>Playlists including this episode</h3>
+      <p><em>(Playlists feature coming soon)</em></p>
+    </div>
+  </div>
+}

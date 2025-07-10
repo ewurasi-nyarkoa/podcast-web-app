@@ -1,0 +1,19 @@
+<section class="latest-episodes">
+  <h2>Latest Episodes</h2>
+  @if (latestEpisodes.length > 0) {
+    @for (episode of latestEpisodes; track episode.id) {
+      <div class="episode-item">
+        <a [routerLink]="['/episodes', episode.id]">
+          <h3>{{ episode.title }}</h3>
+          <p>{{ episode.description }}</p>
+          <span>{{ episode.duration }}</span>
+        </a>
+        <button class="play-btn" (click)="togglePlayPause(episode)">
+          <span *ngIf="isCurrentEpisodePlaying(episode); else playIcon">Pause</span>
+          <ng-template #playIcon>Play</ng-template>
+        </button>
+      </div>
+    }
+  }
+  <a routerLink="/episodes" class="view-all">View All Episodes</a>
+</section>
