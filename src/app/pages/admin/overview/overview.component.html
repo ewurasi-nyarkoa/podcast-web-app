@@ -1,0 +1,130 @@
+<div class="dashboard-header">
+  <h1>Dashboard</h1>
+  <p>Welcome back! Here's what's happening with your podcast.</p>
+</div>
+
+<!-- Stats Grid -->
+<div class="stats-grid">
+  <mat-card class="stats-card blue">
+    <mat-card-content>
+      <div class="stats-content">
+        <div class="stats-info">
+          <p class="stats-title">Total Teams</p>
+          <p class="stats-value">{{stats.totalTeams}}</p>
+          <p class="stats-trend positive">+12%</p>
+        </div>
+        <div class="stats-icon">
+          <mat-icon>group</mat-icon>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="stats-card green">
+    <mat-card-content>
+      <div class="stats-content">
+        <div class="stats-info">
+          <p class="stats-title">Total Confessions</p>
+          <p class="stats-value">{{stats.totalConfessions}}</p>
+          <p class="stats-trend positive">+8%</p>
+        </div>
+        <div class="stats-icon">
+          <mat-icon>message</mat-icon>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="stats-card purple">
+    <mat-card-content>
+      <div class="stats-content">
+        <div class="stats-info">
+          <p class="stats-title">Monthly Downloads</p>
+          <p class="stats-value">{{stats.monthlyDownloads | number}}</p>
+          <p class="stats-trend positive">+15%</p>
+        </div>
+        <div class="stats-icon">
+          <mat-icon>download</mat-icon>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="stats-card orange">
+    <mat-card-content>
+      <div class="stats-content">
+        <div class="stats-info">
+          <p class="stats-title">Pending Confessions</p>
+          <p class="stats-value">{{stats.pendingConfessions}}</p>
+        </div>
+        <div class="stats-icon">
+          <mat-icon>schedule</mat-icon>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Recent Content Grid -->
+<div class="content-grid">
+  <!-- Recent Episodes -->
+  <mat-card class="content-card">
+    <mat-card-header>
+      <mat-card-title>Recent Episodes</mat-card-title>
+      <button mat-button color="primary">View All</button>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="episode-item">
+        <img src="assets/episode-placeholder.jpg" alt="Episode" class="episode-thumbnail">
+        <div class="episode-info">
+          <h3>The Art of Storytelling in Audio</h3>
+          <p>Exploring narrative techniques that captivate listeners</p>
+          <div class="episode-meta">
+            <span><mat-icon>download</mat-icon> 1,250 downloads</span>
+            <span><mat-icon>calendar_today</mat-icon> Jan 15, 2024</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="episode-item">
+        <img src="assets/episode-placeholder.jpg" alt="Episode" class="episode-thumbnail">
+        <div class="episode-info">
+          <h3>Behind the Microphone: Producer Stories</h3>
+          <p>Interviews with top podcast producers</p>
+          <div class="episode-meta">
+            <span><mat-icon>download</mat-icon> 980 downloads</span>
+            <span><mat-icon>calendar_today</mat-icon> Jan 12, 2024</span>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Recent Confessions -->
+  <mat-card class="content-card">
+    <mat-card-header>
+      <mat-card-title>Recent Confessions</mat-card-title>
+      <button mat-button color="primary" routerLink="/admin/confessions">View All</button>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngFor="let confession of recentConfessions" class="confession-item">
+        <div class="confession-content">
+          <h3>{{confession.message.length > 50 ? (confession.message | slice:0:50) + '...' : confession.message}}</h3>
+          <p>Category: {{confession.category}} | Emotion: {{confession.emotion}}</p>
+          <div class="confession-meta">
+            <mat-chip-set>
+              <mat-chip [color]="confession.is_approved ? 'primary' : 'warn'">
+                {{confession.is_approved ? 'Approved' : 'Pending'}}
+              </mat-chip>
+            </mat-chip-set>
+            <span class="confession-date">{{formatDate(confession.created_at)}}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="recentConfessions.length === 0" class="no-data">
+        <p>No confessions yet</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -2,16 +2,16 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 50%, var(--color-surface) 100%) !important;
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid var(--color-border);
   transition: all 0.3s ease;
 }
 
 .header-toolbar.scrolled {
-  background: rgba(102, 126, 234, 0.9) !important;
+  background: rgba(26, 26, 26, 0.9) !important;
   backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 .header-content {
@@ -22,6 +22,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
+  color: var(--color-text);
 }
 
 .brand {
@@ -39,18 +40,39 @@
 }
 
 .desktop-nav {
+  color: var(--color-text);
   display: flex;
   gap: 8px;
 }
 
+.desktop-nav .mat-mdc-button {
+  color: var(--color-text) !important;
+}
+
+.desktop-nav .mat-mdc-button:hover {
+  background-color: var(--color-accent) !important;
+  color: var(--color-primary-contrast) !important;
+}
+
 .desktop-nav a.active {
-  background-color: rgba(255,255,255,0.1);
+  background-color: var(--color-muted);
 }
 
 .header-actions {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.header-actions .mat-mdc-button,
+.header-actions .mat-mdc-icon-button {
+  color: var(--color-text) !important;
+}
+
+.header-actions .mat-mdc-button:hover,
+.header-actions .mat-mdc-icon-button:hover {
+  background-color: var(--color-accent) !important;
+  color: var(--color-primary-contrast) !important;
 }
 
 .login-btn {
@@ -67,21 +89,18 @@
   .desktop-nav {
     display: none;
   }
-  
   .mobile-menu {
     display: block;
   }
-  
   .login-btn span {
     display: none;
   }
 }
 
-
- .mobile-menu-panel {
-  background: rgba(255, 255, 255, 0.95) !important;
+.mobile-menu-panel {
+  background: var(--color-surface) !important;
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-border);
   border-radius: 12px !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   margin-top: 8px;
@@ -90,24 +109,25 @@
   overflow-y: auto !important;
 }
 
- .mobile-menu-panel .mat-mdc-menu-item {
+.mobile-menu-panel .mat-mdc-menu-item {
   border-radius: 8px;
   margin: 4px 8px;
   transition: all 0.3s ease;
 }
 
 .mobile-menu-panel .mat-mdc-menu-item:hover {
-  background: rgba(102, 126, 234, 0.1) !important;
+  background: var(--color-accent) !important;
+  color: var(--color-primary-contrast) !important;
   transform: translateX(4px);
 }
 
 .mobile-menu-panel .mat-mdc-menu-item .mat-icon {
-  color: #667eea;
+  color: var(--color-primary);
   margin-right: 12px;
 }
 
 .mobile-menu-panel .mat-divider {
-  border-color: rgba(102, 126, 234, 0.2);
+  border-color: var(--color-accent);
   margin: 8px 0;
 }
 
@@ -115,7 +135,6 @@
   .brand-text {
     display: none;
   }
-  
   .header-content {
     padding: 0 8px;
   }

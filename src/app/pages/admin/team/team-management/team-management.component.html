@@ -1,0 +1,35 @@
+<div class="team-management-container">
+  <div class="team-header">
+    <h1>Team Members</h1>
+    <button mat-raised-button color="primary" (click)="addMember()">
+      <mat-icon>person_add</mat-icon>
+      Add Team Member
+    </button>
+  </div>
+
+  <div class="team-card-grid">
+    <mat-card class="team-card" *ngFor="let member of teamMembers$ | async">
+      <div class="team-avatar-wrapper">
+        <img [src]="member.profile_image" 
+             alt="{{member.name}}" 
+             class="team-avatar"
+             (error)="onImageError($event, member)"
+             (load)="onImageLoad($event, member)" />
+      </div>
+      <div class="team-card-content">
+        <h2 class="team-name">{{ member.name }}</h2>
+        <p class="team-role">{{ member.role }}</p>
+        <p class="team-bio">{{ member.bio }}</p>
+        <div class="team-socials">
+          <a *ngFor="let social of member.social_media_links" [href]="social.url" target="_blank" mat-icon-button>
+            <mat-icon>link</mat-icon>
+          </a>
+        </div>
+        <div class="team-actions">
+          <button mat-icon-button color="primary" (click)="editMember(member)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn" (click)="deleteMember(member)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

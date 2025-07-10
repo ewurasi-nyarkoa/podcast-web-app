@@ -1,0 +1,152 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px);
+  padding: 20px;
+}
+
+.login-content {
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.login-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+   background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
+  padding: 40px;
+}
+
+.login-image img {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.login-card {
+  flex: 1;
+  padding: 40px;
+  box-shadow: none !important;
+  border-radius: 0;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.submit-btn {
+  height: 48px;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+mat-card-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+mat-card-actions {
+  padding-top: 16px;
+  text-align: center;
+}
+
+mat-card-actions p {
+  margin: 0;
+  font-size: 14px;
+}
+
+mat-card-actions a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+mat-card-actions a:hover {
+  text-decoration: underline;
+}
+
+// Dark theme styles
+:host-context(.dark-theme) ::ng-deep {
+  .login-container {
+    background: #1a1a1a;
+  }
+
+  .login-content {
+    background: #2d2d2d;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .login-image {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  }
+
+  .login-card {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  .mat-mdc-card-title {
+    color: white;
+  }
+
+  .mat-mdc-form-field {
+    color: white;
+  }
+
+  .mat-mdc-form-field .mat-mdc-input-element {
+    color: white;
+  }
+
+  .mat-mdc-form-field .mat-mdc-floating-label {
+    color: #ccc;
+  }
+
+  .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+    color: #0078d4;
+  }
+
+  mat-card-actions p {
+    color: #ccc;
+  }
+
+  mat-card-actions a {
+    color: #0078d4;
+  }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .login-content {
+    max-width: 400px;
+  }
+  
+  .login-image {
+    display: none; // Hide image on mobile
+  }
+  
+  .login-card {
+    padding: 20px;
+    flex: none;
+  }
+}
+
+// Global snackbar styles
+:host ::ng-deep .success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+:host ::ng-deep .error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}

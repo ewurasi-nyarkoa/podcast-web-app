@@ -6,35 +6,79 @@ $tablet: 768px;
 $desktop: 1024px;
 $large: 1200px;
 
-html, body { 
-  height: 100%; 
+:root {
+  /* Light theme colors - subtle */
+  --color-bg: #f5f6fa;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0f1f6;
+  --color-text: #23272f;
+  --color-text-secondary: #7a7f87;
+  --color-border: #e3e6ed;
+  --color-primary: #5b7cfa;
+  --color-primary-contrast: #fff;
+  --color-accent: #e8edfa;
+  --color-success: #6fcf97;
+  --color-warning: #ffe29a;
+  --color-danger: #ffb4b4;
+  --color-muted: #f3f5fa;
+}
+
+html, body {
+  height: 100%;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body { 
-  margin: 0; 
-  font-family: Roboto, "Helvetica Neue", sans-serif; 
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
-// Light theme (default)
 body.light-theme {
-  background-color: #fafafa;
-  color: #333;
+  /* Light theme variables - subtle */
+  --color-bg: #f5f6fa;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0f1f6;
+  --color-text: #23272f;
+  --color-text-secondary: #7a7f87;
+  --color-border: #e3e6ed;
+  --color-primary: #5b7cfa;
+  --color-primary-contrast: #fff;
+  --color-accent: #e8edfa;
+  --color-success: #6fcf97;
+  --color-warning: #ffe29a;
+  --color-danger: #ffb4b4;
+  --color-muted: #f3f5fa;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
-// Dark theme
 body.dark-theme {
-  background-color: #121212;
-  color: #ffffff;
-  
+  /* Dark theme variables - subtle */
+  --color-bg: #181a20;
+  --color-surface: #23262e;
+  --color-surface-alt: #22242b;
+  --color-text: #f5f6fa;
+  --color-text-secondary: #b0b3bb;
+  --color-border: #23262e;
+  --color-primary: #7b9cff;
+  --color-primary-contrast: #181a20;
+  --color-accent: #232e4a;
+  --color-success: #57d9a3;
+  --color-warning: #ffd580;
+  --color-danger: #ff6b81;
+  --color-muted: #23262e;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
   // Override Material components for dark theme
   .mat-mdc-card {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
+    background-color: var(--color-surface) !important;
+    color: var(--color-text) !important;
   }
-  
   .mat-mdc-form-field {
-    color: #ffffff !important;
+    color: var(--color-text) !important;
   }
 }
 

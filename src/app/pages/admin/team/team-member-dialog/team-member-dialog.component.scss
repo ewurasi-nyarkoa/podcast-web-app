@@ -1,0 +1,75 @@
+.team-dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 320px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.social-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.social-fields mat-form-field {
+  flex: 1 1 160px;
+  min-width: 120px;
+}
+
+.image-preview {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.preview-img {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+}
+
+.preview-text {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 8px 0 0 0;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .team-dialog-form {
+    min-width: 0;
+  }
+  .social-fields {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+:host-context(.dark-theme) {
+  .team-dialog-form {
+    background: #23232b;
+    color: #f3f3f3;
+  }
+  mat-form-field, input, textarea {
+    color: #f3f3f3 !important;
+  }
+  .dialog-actions button[mat-stroked-button] {
+    border-color: #444;
+    color: #f3f3f3;
+  }
+  .dialog-actions button[mat-flat-button] {
+    background: #1976d2;
+    color: #fff;
+  }
+}

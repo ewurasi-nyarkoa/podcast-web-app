@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Team Member' : 'Add Team Member' }}</h2>
+<form [formGroup]="form" (ngSubmit)="submit()" class="team-dialog-form">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Role</mat-label>
+    <input matInput formControlName="role" required placeholder="e.g. Host, Producer, Editor" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Image URL</mat-label>
+    <input matInput formControlName="image" required placeholder="https://example.com/image.jpg" />
+  </mat-form-field>
+  
+
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Bio</mat-label>
+    <textarea matInput formControlName="bio" rows="3" required></textarea>
+  </mat-form-field>
+
+  <div class="social-fields">
+    <mat-form-field appearance="outline">
+      <mat-label>Facebook</mat-label>
+      <input matInput formControlName="facebook" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Twitter</mat-label>
+      <input matInput formControlName="twitter" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Instagram</mat-label>
+      <input matInput formControlName="instagram" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>LinkedIn</mat-label>
+      <input matInput formControlName="linkedin" />
+    </mat-form-field>
+    <!-- <mat-form-field appearance="outline">
+      <mat-label>YouTube</mat-label>
+      <input matInput formControlName="youtube" />
+    </mat-form-field> -->
+  </div>
+
+  <div class="dialog-actions">
+    <button mat-stroked-button type="button" (click)="close()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+  </div>
+</form>
