@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { AudioPlayerService } from '../core/services/audio-player/audio-player.service';
 import { Episode } from '../core/interfaces/episodes';
 import { CommonModule } from '@angular/common';
+import { PaginationComponent } from "../shared/components/pagination/pagination.component";
 
 @Component({
   selector: 'app-episodes-list',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, PaginationComponent],
   templateUrl: './episodes-list.component.html',
   styleUrls: ['./episodes-list.component.scss']
 })
