@@ -29,7 +29,24 @@
     </div>
     <div class="playlists">
       <h3>Playlists including this episode</h3>
-      <p><em>(Playlists feature coming soon)</em></p>
+      @if (playlistsLoading) {
+        <p>Loading playlists...</p>
+      } @else if (playlists.length === 0) {
+        <p>This episode is not included in any playlists yet.</p>
+      } @else {
+        <div class="playlists-list">
+          @for (playlist of playlists; track playlist.id) {
+            <a [routerLink]="['/playlists', playlist.id]" class="playlist-item">
+              <div class="playlist-info">
+                <h4>{{ playlist.name }}</h4>
+                <p>{{ playlist.description }}</p>
+                <span>{{ playlist.episodes.length || 0 }} episodes</span>
+              </div>
+              <i class="material-icons">chevron_right</i>
+            </a>
+          }
+        </div>
+      }
     </div>
   </div>
 }

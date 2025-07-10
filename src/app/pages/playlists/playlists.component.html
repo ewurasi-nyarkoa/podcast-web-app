@@ -1,0 +1,75 @@
+<div class="playlists-container">
+  <div class="page-header">
+    <h1>Playlists</h1>
+    <p>Discover curated collections of episodes handpicked by our team</p>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading playlists...</p>
+    </div>
+  } @else if (error) {
+    <div class="error-container">
+      <p>{{ error }}</p>
+      <button class="retry-btn" (click)="loadPlaylists()">Try Again</button>
+    </div>
+  } @else if (playlists.length === 0) {
+    <div class="empty-state">
+      <p>No playlists available at the moment.</p>
+    </div>
+  } @else {
+    <div class="playlists-grid">
+      @for (playlist of playlists; track playlist.id) {
+        <div class="playlist-card">
+          <div class="playlist-header">
+            <h3>{{ playlist.name }}</h3>
+            <p>{{ playlist.description }}</p>
+          </div>
+          
+          <div class="playlist-meta">
+            <span class="episode-count">
+              <i class="material-icons">headset</i>
+              {{ getEpisodeCount(playlist) }} episodes
+            </span>
+            <span class="duration">
+              <i class="material-icons">schedule</i>
+              {{ getTotalDuration(playlist) }}
+            </span>
+          </div>
+
+          <div class="playlist-episodes-preview">
+            @if (playlist.episodes && playlist.episodes.length > 0) {
+              @for (episode of playlist.episodes.slice(0, 3); track episode.id) {
+                <div class="episode-preview">
+                  <div class="episode-art">
+                    @if (episode.img_url) {
+                      <img [src]="episode.img_url" [alt]="episode.title" />
+                    } @else {
+                      <span>🎵</span>
+                    }
+                  </div>
+                  <div class="episode-info">
+                    <h4>{{ episode.title }}</h4>
+                    <span>{{ episode.duration }}</span>
+                  </div>
+                </div>
+              }
+              @if (playlist.episodes.length > 3) {
+                <div class="more-episodes">
+                  <span>+{{ playlist.episodes.length - 3 }} more</span>
+                </div>
+              }
+            }
+          </div>
+
+          <div class="playlist-actions">
+            <a [routerLink]="['/playlists', playlist.id]" class="view-playlist-btn">
+              View Playlist
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div> 

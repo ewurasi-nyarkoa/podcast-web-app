@@ -1,0 +1,90 @@
+<div class="playlist-detail-container">
+  @if (loading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading playlist...</p>
+    </div>
+  } @else if (error) {
+    <div class="error-container">
+      <p>{{ error }}</p>
+      <button class="retry-btn" (click)="loadPlaylist(playlist?.id?.toString() || '')">Try Again</button>
+    </div>
+  } @else if (playlist) {
+    <div class="playlist-header">
+      <button class="back-btn" (click)="goBack()">
+        <i class="material-icons">arrow_back</i>
+        Back to Playlists
+      </button>
+      
+      <div class="playlist-info">
+        <h1>{{ playlist.name }}</h1>
+        <p>{{ playlist.description }}</p>
+        
+        <div class="playlist-stats">
+          <span class="episode-count">
+            <i class="material-icons">headset</i>
+            {{ playlist.episodes.length || 0 }} episodes
+          </span>
+          <span class="duration">
+            <i class="material-icons">schedule</i>
+            {{ getTotalDuration() }}
+          </span>
+        </div>
+
+        <div class="playlist-actions">
+          <button class="play-all-btn" (click)="playPlaylist()" [disabled]="!playlist.episodes || playlist.episodes.length === 0">
+            <i class="material-icons">play_arrow</i>
+            Play All
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="episodes-section">
+      <h2>Episodes</h2>
+      
+      @if (!playlist.episodes || playlist.episodes.length === 0) {
+        <div class="empty-episodes">
+          <p>No episodes in this playlist yet.</p>
+        </div>
+      } @else {
+        <div class="episodes-list">
+          @for (episode of playlist.episodes; track episode.id; let i = $index) {
+            <div class="episode-item">
+              <div class="episode-number">{{ i + 1 }}</div>
+              
+              <div class="episode-art">
+                @if (episode.img_url) {
+                  <img [src]="episode.img_url" [alt]="episode.title" />
+                } @else {
+                  <span>🎵</span>
+                }
+              </div>
+              
+              <div class="episode-info">
+                <h3>{{ episode.title }}</h3>
+                <p>{{ episode.description }}</p>
+                <div class="episode-meta">
+                  <span>{{ episode.duration }}</span>
+                  <span>Season {{ episode.season }}, Episode {{ episode.episode }}</span>
+                </div>
+              </div>
+              
+              <div class="episode-actions">
+                <button class="play-btn" (click)="togglePlayPause(episode)">
+                  <i class="material-icons">
+                    {{ isCurrentEpisodePlaying(episode) ? 'pause' : 'play_arrow' }}
+                  </i>
+                </button>
+                
+                <a [routerLink]="['/episodes', episode.id]" class="view-episode-btn">
+                  <i class="material-icons">open_in_new</i>
+                </a>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div> 

@@ -71,11 +71,73 @@ audio {
 .playlists {
   background: #232323;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1.5rem;
   width: 100%;
   margin-top: 1.5rem;
   color: #b3b3b3;
-  text-align: center;
+  text-align: left;
+
+  h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+    margin-bottom: 0;
+  }
+}
+
+.playlists-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.playlist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: #2a2a2a;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: #333;
+  }
+
+  .playlist-info {
+    flex: 1;
+
+    h4 {
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      margin-bottom: 0.25rem;
+      text-align: left;
+    }
+
+    span {
+      font-size: 0.75rem;
+      color: #1db954;
+    }
+  }
+
+  i {
+    color: #b3b3b3;
+    font-size: 1.2rem;
+  }
 }
 @media (max-width: 700px) {
   .episode-details-card {

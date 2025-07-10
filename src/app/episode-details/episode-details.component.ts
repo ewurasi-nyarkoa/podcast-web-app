@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EpisodesService } from '../core/services/episodes/episodes.service';
+import { PlaylistsService } from '../core/services/playlists/playlists.service';
 import { AudioPlayerService } from '../core/services/audio-player/audio-player.service';
 import { Episode } from '../core/interfaces/episodes';
+import { Playlist } from '../core/interfaces/playlist';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-episode-details',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './episode-details.component.html',
   styleUrls: ['./episode-details.component.scss']
 })
@@ -19,10 +22,13 @@ export class EpisodeDetailsComponent implements OnInit {
   duration = 0;
   isPlaying = false;
   currentEpisodeId: number | null = null;
+  playlists: Playlist[] = [];
+  playlistsLoading = false;
 
   constructor(
     private route: ActivatedRoute,
     private episodesService: EpisodesService,
+    private playlistsService: PlaylistsService,
     public audioPlayerService: AudioPlayerService
   ) {}
 
@@ -34,6 +40,8 @@ export class EpisodeDetailsComponent implements OnInit {
         this.loading = false;
         if (!this.episode) {
           this.error = 'Episode not found.';
+        } else {
+          this.loadPlaylistsForEpisode();
         }
       }, err => {
         this.error = 'Failed to load episode.';
@@ -75,5 +83,24 @@ export class EpisodeDetailsComponent implements OnInit {
 
   formatTime(seconds: number): string {
     return this.audioPlayerService.formatTime(seconds);
+  }
+
+  private loadPlaylistsForEpisode() {
+    if (!this.episode) return;
+    
+    this.playlistsLoading = true;
+    this.playlistsService.getPlaylists().subscribe({
+      next: (allPlaylists) => {
+        // Filter playlists that contain this episode
+        this.playlists = allPlaylists.filter(playlist => 
+          playlist.episodes?.some(ep => ep.id === this.episode?.id)
+        );
+        this.playlistsLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading playlists for episode:', error);
+        this.playlistsLoading = false;
+      }
+    });
   }
 }
