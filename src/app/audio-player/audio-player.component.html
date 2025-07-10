@@ -1,0 +1,25 @@
+@if (showPlayer) {
+  <div class="audio-player" *ngIf="(currentEpisode$ | async) as episode">
+    <div class="audio-info">
+      <strong>{{ episode.title }}</strong>
+    </div>
+    <div class="audio-controls">
+      <button (click)="togglePlayPause()">
+        <span *ngIf="(isPlaying$ | async); else playIcon">Pause</span>
+        <ng-template #playIcon>Play</ng-template>
+      </button>
+      <button (click)="cancel()" title="Close Player" style="background:#232323;color:#fff;border-radius:50%;width:44px;height:44px;font-size:1.2rem;margin-left:0.5rem;">
+        ✕
+      </button>
+      <span>{{ formatTime((currentTime$ | async) || 0) }}</span>
+      <input
+        type="range"
+        min="0"
+        [max]="(duration$ | async) || 0"
+        [value]="(currentTime$ | async) || 0"
+        (input)="seekFromInput($event)"
+      />
+      <span>{{ formatTime((duration$ | async) || 0) }}</span>
+    </div>
+  </div>
+}
