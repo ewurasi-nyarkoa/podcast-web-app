@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+
+import { EpisodesListComponent } from './episodes-list/episodes-list.component';
+import { EpisodeDetailsComponent } from './episode-details/episode-details.component';
 import { LoginComponent } from './pages/admin/login/login.component';
 import { SignupComponent } from './pages/admin/signup/signup.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
@@ -15,6 +18,8 @@ export const routes: Routes = [
   { path: 'episodes', component: EpisodesListComponent },
   { path: 'episodes/:id', component: EpisodeDetailsComponent },
   { path: 'team', loadComponent: () => import('./pages/team/team.component').then(m => m.TeamComponent) },
+    { path: 'episodes', component: EpisodesListComponent },
+  { path: 'episodes/:id', component: EpisodeDetailsComponent },
   { path: 'confessions', component: ConfessionsComponent },
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/signup', component: SignupComponent },
