@@ -7,8 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { ConfessionService } from '../../../core/services/confessions/confession.service';
 import { TeamService } from '../../../core/services/team/team.service';
+import { EpisodeService } from '../../../core/services/episodes.service';
 import { confession } from '../../../core/interfaces/confessions';
 import { TeamMember } from '../../../core/interfaces/team';
+import { Episode } from '../../../core/interfaces/episode';
 import { Observable } from 'rxjs';
 
 interface DashboardStats {
@@ -20,18 +22,18 @@ interface DashboardStats {
   pendingConfessions: number;
 }
 
-interface Episode {
-  id: string;
-  title: string;
-  description: string;
-  duration: number;
-  publishedAt: string;
-  status: string;
-  thumbnail: string;
-  audioUrl: string;
-  downloads: number;
-  category: string;
-}
+// interface Episode {
+//   id: string;
+//   title: string;
+//   description: string;
+//   duration: number;
+//   publishedAt: string;
+//   status: string;
+//   thumbnail: string;
+//   audioUrl: string;
+//   downloads: number;
+//   category: string;
+// }
 
 interface Confession {
   id: string;
@@ -60,9 +62,11 @@ interface Confession {
 export class OverviewComponent implements OnInit {
   private confessionService = inject(ConfessionService);
   private teamService = inject(TeamService);
+  private episodeService = inject(EpisodeService);
   
   confessions$: Observable<confession[]>;
   teamMembers$: Observable<TeamMember[]>;
+  episodes$: Observable<Episode[]>;
   
   stats = {
     totalTeams: 0,
@@ -72,15 +76,18 @@ export class OverviewComponent implements OnInit {
   };
 
   recentConfessions: confession[] = [];
+  recentEpisodes: Episode[] = [];
 
   constructor() {
     this.confessions$ = this.confessionService.getConfessions();
     this.teamMembers$ = this.teamService.getTeamMembers();
+    this.episodes$ = this.episodeService.episodes$;
   }
 
   ngOnInit() {
     this.confessionService.fetchConfessions();
     this.teamService.fetchTeamMembers();
+    this.episodeService.getEpisodes().subscribe();
     
     this.confessions$.subscribe(confessions => {
       this.stats.totalConfessions = confessions.length;
@@ -91,50 +98,54 @@ export class OverviewComponent implements OnInit {
     this.teamMembers$.subscribe(teamMembers => {
       this.stats.totalTeams = teamMembers.length;
     });
+    
+    this.episodes$.subscribe(episodes => {
+      this.recentEpisodes = episodes.slice(0, 2);
+    });
   }
 
   formatDate(date: Date): string {
     return new Date(date).toLocaleDateString();
   }
 
-  mockRecentEpisodes: Episode[] = [
-    {
-      id: '1',
-      title: 'The Art of Storytelling in Audio',
-      description: 'Exploring narrative techniques that captivate listeners',
-      duration: 2850,
-      publishedAt: '2024-01-15T10:00:00Z',
-      status: 'published',
-      thumbnail: 'https://images.pexels.com/photos/3784221/pexels-photo-3784221.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=1',
-      audioUrl: '',
-      downloads: 1250,
-      category: 'Education'
-    },
-    {
-      id: '2',
-      title: 'Behind the Microphone: Producer Stories',
-      description: 'Interviews with top podcast producers',
-      duration: 3420,
-      publishedAt: '2024-01-12T14:30:00Z',
-      status: 'published',
-      thumbnail: 'https://images.pexels.com/photos/7688460/pexels-photo-7688460.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=1',
-      audioUrl: '',
-      downloads: 980,
-      category: 'Interview'
-    },
-    {
-      id: '3',
-      title: 'Listener Confessions: Most Shocking Stories',
-      description: 'Compilation of the most surprising listener stories',
-      duration: 2100,
-      publishedAt: '2024-01-10T09:15:00Z',
-      status: 'published',
-      thumbnail: 'https://images.pexels.com/photos/6686455/pexels-photo-6686455.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=1',
-      audioUrl: '',
-      downloads: 1890,
-      category: 'Entertainment'
-    }
-  ];
+  // mockRecentEpisodes: Episode[] = [
+  //   {
+  //     id: '1',
+  //     title: 'The Art of Storytelling in Audio',
+  //     description: 'Exploring narrative techniques that captivate listeners',
+  //     duration: 2850,
+  //     publishedAt: '2024-01-15T10:00:00Z',
+  //     status: 'published',
+  //     thumbnail: 'https://images.pexels.com/photos/3784221/pexels-photo-3784221.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=1',
+  //     audioUrl: '',
+  //     downloads: 1250,
+  //     category: 'Education'
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Behind the Microphone: Producer Stories',
+  //     description: 'Interviews with top podcast producers',
+  //     duration: 3420,
+  //     publishedAt: '2024-01-12T14:30:00Z',
+  //     status: 'published',
+  //     thumbnail: 'https://images.pexels.com/photos/7688460/pexels-photo-7688460.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=1',
+  //     audioUrl: '',
+  //     downloads: 980,
+  //     category: 'Interview'
+  //   },
+  //   {
+  //     id: '3',
+  //     title: 'Listener Confessions: Most Shocking Stories',
+  //     description: 'Compilation of the most surprising listener stories',
+  //     duration: 2100,
+  //     publishedAt: '2024-01-10T09:15:00Z',
+  //     status: 'published',
+  //     thumbnail: 'https://images.pexels.com/photos/6686455/pexels-photo-6686455.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&dpr=1',
+  //     audioUrl: '',
+  //     downloads: 1890,
+  //     category: 'Entertainment'
+  //   }
+  // ];
 
   mockRecentConfessions: Confession[] = [
     {
