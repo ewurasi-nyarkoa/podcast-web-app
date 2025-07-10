@@ -23,4 +23,11 @@
       </div>
     }
   </div>
+  <app-pagination
+    [currentPage]="episodesResponse.meta.page"
+    [totalPages]="episodesResponse.meta.last_page"
+    [totalItems]="episodesResponse.meta.total"
+    [itemsPerPage]="15"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 }
