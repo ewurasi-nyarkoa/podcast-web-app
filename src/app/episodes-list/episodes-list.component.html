@@ -1,29 +1,36 @@
 @if (episodesResponse) {
   <div class="episodes-grid" role="list" aria-label="Episodes list">
     @for (episode of episodesResponse.data; track episode.id) {
-      <article class="episode-item" role="listitem">
-        <a [routerLink]="['/episodes', episode.id]" [attr.aria-label]="'View details for ' + episode.title">
-          <div class="album-art">
-            @if (episode.img_url) {
-              <img [src]="episode.img_url" [alt]="'Album art for ' + episode.title" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
-            } @else {
-              <span aria-label="No album art available">🎵</span>
-            }
-          </div>
-          <h3>{{ episode.title }}</h3>
-          <p>{{ episode.description }}</p>
+      <article class="episode-card" role="listitem">
+        <div class="episode-image">
+          @if (episode.img_url) {
+            <img [src]="episode.img_url" [alt]="'Album art for ' + episode.title" />
+          } @else {
+            <div class="placeholder-image" aria-label="No album art available">
+              🎵
+            </div>
+          }
+          <button 
+            class="play-button" 
+            (click)="togglePlayPause(episode)"
+            [attr.aria-label]="isCurrentEpisodePlaying(episode) ? 'Pause ' + episode.title : 'Play ' + episode.title"
+            [attr.aria-pressed]="isCurrentEpisodePlaying(episode)">
+            <span *ngIf="isCurrentEpisodePlaying(episode); else playIcon">⏸️</span>
+            <ng-template #playIcon>▶️</ng-template>
+          </button>
+        </div>
+        <div class="episode-content">
+          <h3 class="episode-title">
+            <a [routerLink]="['/episodes', episode.id]" [attr.aria-label]="'View details for ' + episode.title">
+              {{ episode.title }}
+            </a>
+          </h3>
+          <p class="episode-description">{{ episode.description }}</p>
           <div class="episode-meta">
-            <span aria-label="Duration">{{ episode.duration }}</span>
+            <span class="duration">{{ episode.duration }}</span>
+            <span class="episode-number">Episode {{ episode.id }}</span>
           </div>
-        </a>
-        <button 
-          class="play-btn" 
-          (click)="togglePlayPause(episode)"
-          [attr.aria-label]="isCurrentEpisodePlaying(episode) ? 'Pause ' + episode.title : 'Play ' + episode.title"
-          [attr.aria-pressed]="isCurrentEpisodePlaying(episode)">
-          <span *ngIf="isCurrentEpisodePlaying(episode); else playIcon">Pause</span>
-          <ng-template #playIcon>Play</ng-template>
-        </button>
+        </div>
       </article>
     }
   </div>
