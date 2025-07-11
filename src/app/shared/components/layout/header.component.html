@@ -1,56 +1,56 @@
-<mat-toolbar color="primary" class="header-toolbar">
+<mat-toolbar color="primary" class="header-toolbar" role="banner">
   <div class="header-content">
 
-    <div class="brand" routerLink="/">
-      <mat-icon>radio</mat-icon>
+    <div class="brand" routerLink="/" role="button" tabindex="0" (keydown.enter)="navigateHome()" (keydown.space)="navigateHome()" aria-label="Go to home page">
+      <mat-icon aria-hidden="true">radio</mat-icon>
       <span class="brand-text">PodcastApp</span>
     </div>
 
-    <nav class="desktop-nav">
-      <a mat-button routerLink="/episodes" routerLinkActive="active">Episodes</a>
-      <a mat-button routerLink="/playlists" routerLinkActive="active">Playlists</a>
-      <a mat-button routerLink="/confessions" routerLinkActive="active">Confessions</a>
-      <a mat-button routerLink="/team" routerLinkActive="active">Team</a>
+    <nav class="desktop-nav" role="navigation" aria-label="Main navigation">
+      <a mat-button routerLink="/episodes" routerLinkActive="active" aria-label="Browse all episodes">Episodes</a>
+      <a mat-button routerLink="/playlists" routerLinkActive="active" aria-label="Browse playlists">Playlists</a>
+      <a mat-button routerLink="/confessions" routerLinkActive="active" aria-label="Share your confession">Confessions</a>
+      <a mat-button routerLink="/team" routerLinkActive="active" aria-label="Meet the team">Team</a>
     </nav>
 
 
-    <div class="header-actions">
+    <div class="header-actions" role="group" aria-label="Header actions">
 
       <app-theme-toggle></app-theme-toggle>
       
     
-      <a mat-button routerLink="/admin/login" class="login-btn">
-        <mat-icon>admin_panel_settings</mat-icon>
+      <a mat-button routerLink="/admin/login" class="login-btn" aria-label="Admin login">
+        <mat-icon aria-hidden="true">admin_panel_settings</mat-icon>
         Admin
       </a>
 
-      <button mat-icon-button class="mobile-menu" [matMenuTriggerFor]="mobileMenu">
-        <mat-icon>menu</mat-icon>
+      <button mat-icon-button class="mobile-menu" [matMenuTriggerFor]="mobileMenu" aria-label="Open mobile menu">
+        <mat-icon aria-hidden="true">menu</mat-icon>
       </button>
     </div>
   </div>
 </mat-toolbar>
 
 <mat-menu #mobileMenu="matMenu" class="mobile-menu-panel">
-  <a mat-menu-item routerLink="/episodes">
-    <mat-icon>headphones</mat-icon>
+  <a mat-menu-item routerLink="/episodes" aria-label="Browse all episodes">
+    <mat-icon aria-hidden="true">headphones</mat-icon>
     Episodes
   </a>
-  <a mat-menu-item routerLink="/playlists">
-    <mat-icon>playlist_play</mat-icon>
+  <a mat-menu-item routerLink="/playlists" aria-label="Browse playlists">
+    <mat-icon aria-hidden="true">playlist_play</mat-icon>
     Playlists
   </a>
-  <a mat-menu-item routerLink="/confessions">
-    <mat-icon>message</mat-icon>
+  <a mat-menu-item routerLink="/confessions" aria-label="Share your confession">
+    <mat-icon aria-hidden="true">message</mat-icon>
     Confessions
   </a>
-  <a mat-menu-item routerLink="/team">
-    <mat-icon>group</mat-icon>
+  <a mat-menu-item routerLink="/team" aria-label="Meet the team">
+    <mat-icon aria-hidden="true">group</mat-icon>
     Team
   </a>
   <mat-divider></mat-divider>
-  <a mat-menu-item routerLink="/admin/login">
-    <mat-icon>admin_panel_settings</mat-icon>
+  <a mat-menu-item routerLink="/admin/login" aria-label="Admin login">
+    <mat-icon aria-hidden="true">admin_panel_settings</mat-icon>
     Admin Login
   </a>
 </mat-menu>

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,7 +25,10 @@ import { ThemeToggleComponent } from '../ui/theme-toggle.component';
 export class HeaderComponent implements OnInit, OnDestroy {
   private scrollListener?: () => void;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.scrollListener = () => {
@@ -43,5 +46,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.scrollListener) {
       window.removeEventListener('scroll', this.scrollListener);
     }
+  }
+
+  navigateHome() {
+    this.router.navigate(['/']);
   }
 }

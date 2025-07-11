@@ -4,11 +4,12 @@
       <div class="loading-spinner"></div>
       <p>Loading playlist...</p>
     </div>
-  } @else if (error) {
-    <div class="error-container">
-      <p>{{ error }}</p>
-      <button class="retry-btn" (click)="loadPlaylist(playlist?.id?.toString() || '')">Try Again</button>
-    </div>
+  } @else if (error && !playlist) {
+    <app-resource-not-found 
+      resourceType="playlist" 
+      [resourceId]="playlistId"
+      [customMessage]="error">
+    </app-resource-not-found>
   } @else if (playlist) {
     <div class="playlist-header">
       <button class="back-btn" (click)="goBack()">

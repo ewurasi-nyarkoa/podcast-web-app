@@ -8,62 +8,64 @@
     <mat-card class="confession-card">
       <mat-card-header>
         <mat-card-title>
-          <mat-icon>lock</mat-icon>
+          <mat-icon aria-hidden="true">lock</mat-icon>
           Anonymous Confession
         </mat-card-title>
         <mat-card-subtitle>Your identity will remain completely private</mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
-        <form [formGroup]="confessionForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="confessionForm" (ngSubmit)="onSubmit()" aria-label="Confession submission form">
    
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Your Confession</mat-label>
+            <mat-label for="confession-message">Your Confession</mat-label>
             <textarea 
+              id="confession-message"
               matInput 
               formControlName="message" 
               placeholder="Share your story, thoughts, or confession..."
               rows="6"
-              maxlength="1000">
+              maxlength="1000"
+              aria-describedby="message-hint message-error">
             </textarea>
-            <mat-hint align="end">{{getCharacterCount()}}/1000</mat-hint>
-            <mat-error *ngIf="confessionForm.get('message')?.hasError('required')">
+            <mat-hint id="message-hint" align="end">{{getCharacterCount()}}/1000</mat-hint>
+            <mat-error id="message-error" *ngIf="confessionForm.get('message')?.hasError('required')">
               Please share your confession
             </mat-error>
-            <mat-error *ngIf="confessionForm.get('message')?.hasError('minlength')">
+            <mat-error id="message-error" *ngIf="confessionForm.get('message')?.hasError('minlength')">
               Your confession must be at least 10 characters
             </mat-error>
-            <mat-error *ngIf="confessionForm.get('message')?.hasError('maxlength')">
+            <mat-error id="message-error" *ngIf="confessionForm.get('message')?.hasError('maxlength')">
               Your confession cannot exceed 1000 characters
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="category">
+            <mat-label for="confession-category">Category</mat-label>
+            <mat-select id="confession-category" formControlName="category" aria-describedby="category-error">
               <mat-option *ngFor="let category of categories" [value]="category.value">
                 {{category.label}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="confessionForm.get('category')?.hasError('required')">
+            <mat-error id="category-error" *ngIf="confessionForm.get('category')?.hasError('required')">
               Please select a category
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>How are you feeling?</mat-label>
-            <mat-select formControlName="emotion">
+            <mat-label for="confession-emotion">How are you feeling?</mat-label>
+            <mat-select id="confession-emotion" formControlName="emotion" aria-describedby="emotion-error">
               <mat-option *ngFor="let emotion of emotions" [value]="emotion.value">
                 {{emotion.label}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="confessionForm.get('emotion')?.hasError('required')">
+            <mat-error id="emotion-error" *ngIf="confessionForm.get('emotion')?.hasError('required')">
               Please select how you're feeling
             </mat-error>
           </mat-form-field>
 
-          <div class="privacy-notice">
-            <mat-icon>info</mat-icon>
+          <div class="privacy-notice" role="note" aria-label="Privacy information">
+            <mat-icon aria-hidden="true">info</mat-icon>
             <p>
               <strong>Privacy Guarantee:</strong> Your confession is completely anonymous. 
               We don't collect any personal information that could identify you.
@@ -75,28 +77,30 @@
             color="primary" 
             type="submit" 
             [disabled]="!confessionForm.valid || isLoading" 
-            class="full-width submit-btn">
-            <mat-icon *ngIf="!isLoading">send</mat-icon>
+            class="full-width submit-btn"
+            aria-describedby="submit-status">
+            <mat-icon *ngIf="!isLoading" aria-hidden="true">send</mat-icon>
             <span *ngIf="!isLoading">Submit Confession</span>
             <span *ngIf="isLoading">Submitting...</span>
           </button>
+          <div id="submit-status" class="sr-only" aria-live="polite"></div>
         </form>
       </mat-card-content>
     </mat-card>
 
-    <div class="info-section">
+    <div class="info-section" role="complementary" aria-label="Additional information">
       <div class="info-card">
-        <mat-icon>visibility_off</mat-icon>
+        <mat-icon aria-hidden="true">visibility_off</mat-icon>
         <h3>100% Anonymous</h3>
         <p>No personal information is collected or stored</p>
       </div>
       <div class="info-card">
-        <mat-icon>verified</mat-icon>
+        <mat-icon aria-hidden="true">verified</mat-icon>
         <h3>Reviewed First</h3>
         <p>All confessions are reviewed before being shared</p>
       </div>
       <div class="info-card">
-        <mat-icon>mic</mat-icon>
+        <mat-icon aria-hidden="true">mic</mat-icon>
         <h3>Podcast Feature</h3>
         <p>Selected stories may be featured on our podcast</p>
       </div>

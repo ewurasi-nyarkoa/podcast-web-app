@@ -1,34 +1,36 @@
-<section class="team-section">
+<section class="team-section" aria-labelledby="team-title">
   <div class="team-container">
     <div class="team-section-header">
-      <h2>{{ title }}</h2>
+      <h2 id="team-title">{{ title }}</h2>
       <div class="header-actions">
-        <div *ngIf="enableCarousel" class="carousel-controls">
+        <div *ngIf="enableCarousel" class="carousel-controls" role="group" aria-label="Carousel navigation">
           <button mat-icon-button 
                   [disabled]="!canGoPrev" 
                   (click)="prevSlide()" 
-                  class="carousel-btn prev-btn">
-            <mat-icon>chevron_left</mat-icon>
+                  class="carousel-btn prev-btn"
+                  aria-label="Previous team members">
+            <mat-icon aria-hidden="true">chevron_left</mat-icon>
           </button>
           <button mat-icon-button 
                   [disabled]="!canGoNext" 
                   (click)="nextSlide()" 
-                  class="carousel-btn next-btn">
-            <mat-icon>chevron_right</mat-icon>
+                  class="carousel-btn next-btn"
+                  aria-label="Next team members">
+            <mat-icon aria-hidden="true">chevron_right</mat-icon>
           </button>
         </div>
-        <button *ngIf="showViewAllButton" mat-button routerLink="/team" class="view-all-btn">
+        <button *ngIf="showViewAllButton" mat-button routerLink="/team" class="view-all-btn" aria-label="View all team members">
           View All Team
-          <mat-icon>arrow_forward</mat-icon>
+          <mat-icon aria-hidden="true">arrow_forward</mat-icon>
         </button>
       </div>
     </div>
 
-    <div class="team-grid" [class.carousel-mode]="enableCarousel">
-      <div *ngFor="let member of currentSlideMembers" class="team-card">
+    <div class="team-grid" [class.carousel-mode]="enableCarousel" role="list" aria-label="Team members">
+      <div *ngFor="let member of currentSlideMembers" class="team-card" role="listitem">
         <div class="team-avatar-container">
           <img [src]="member.profile_image" 
-               [alt]="member.name" 
+               [alt]="'Profile photo of ' + member.name" 
                class="team-avatar"
                (error)="onImageError($event, member)" />
         </div>
@@ -36,24 +38,28 @@
           <h3 class="team-name">{{ member.name }}</h3>
           <p class="team-role">{{ member.role }}</p>
           <p class="team-bio">{{ member.bio }}</p>
-          <div class="team-social" *ngIf="member.social_media_links?.length">
+          <div class="team-social" *ngIf="member.social_media_links?.length" role="group" aria-label="Social media links">
             <a *ngFor="let social of member.social_media_links" 
                [href]="social.url" 
                target="_blank" 
+               rel="noopener noreferrer"
                class="social-link"
-               [title]="social.platform">
-              <mat-icon>link</mat-icon>
+               [attr.aria-label]="'Visit ' + member.name + ' on ' + social.platform">
+              <mat-icon aria-hidden="true">link</mat-icon>
             </a>
           </div>
         </div>
       </div>
     </div>
     
-    <div *ngIf="enableCarousel" class="carousel-indicators">
+    <div *ngIf="enableCarousel" class="carousel-indicators" role="tablist" aria-label="Carousel slides">
       <button *ngFor="let slide of [].constructor(totalSlides); let i = index" 
               class="indicator" 
               [class.active]="i === currentSlide"
-              (click)="currentSlide = i">
+              (click)="currentSlide = i"
+              [attr.aria-label]="'Go to slide ' + (i + 1) + ' of ' + totalSlides"
+              [attr.aria-selected]="i === currentSlide"
+              role="tab">
       </button>
     </div>
   </div>

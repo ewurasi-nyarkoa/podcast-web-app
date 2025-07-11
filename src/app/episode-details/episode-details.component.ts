@@ -7,10 +7,11 @@ import { Episode } from '../core/interfaces/episodes';
 import { Playlist } from '../core/interfaces/playlist';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ResourceNotFoundComponent } from '../shared/components/resource-not-found/resource-not-found.component';
 
 @Component({
   selector: 'app-episode-details',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ResourceNotFoundComponent],
   templateUrl: './episode-details.component.html',
   styleUrls: ['./episode-details.component.scss']
 })
@@ -24,6 +25,7 @@ export class EpisodeDetailsComponent implements OnInit {
   currentEpisodeId: number | null = null;
   playlists: Playlist[] = [];
   playlistsLoading = false;
+  episodeId?: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +36,8 @@ export class EpisodeDetailsComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
+    this.episodeId = id || undefined;
+    
     if (id) {
       this.episodesService.getEpisodes(1).subscribe(response => {
         this.episode = response.data.find(e => e.id == +id);

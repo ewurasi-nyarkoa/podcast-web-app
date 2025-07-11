@@ -32,5 +32,7 @@ export const routes: Routes = [
       { path: 'playlists', loadComponent: () => import('./pages/admin/playlists/playlists.component').then(m => m.PlaylistsComponent) },
       { path: 'teams', loadComponent: () => import('./pages/admin/team/team-management/team-management.component').then(m => m.TeamManagementComponent) }
     ]
-  }
+  },
+  // Wildcard route for 404 - must be last
+  { path: '**', loadComponent: () => import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent) }
 ];
