@@ -1,42 +1,46 @@
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section" role="banner" aria-labelledby="hero-title">
   <div class="hero-container">
     <div class="hero-content">
-      <h1>Welcome to Our Podcast</h1>
+      <h1 id="hero-title">Welcome to Our Podcast</h1>
       <p>Discover amazing stories, insights, and conversations that matter. Join our community of listeners and share your own confessions.</p>
-      <div class="hero-actions">
-        <button class="cta-button primary">Listen Now</button>
-        <button class="cta-button secondary" routerLink="/confessions">Share Your Story</button>
+      <div class="hero-actions" role="group" aria-label="Hero actions">
+        <button class="cta-button primary" aria-label="Listen to latest episodes">Listen Now</button>
+        <button class="cta-button secondary" routerLink="/confessions" aria-label="Share your story anonymously">Share Your Story</button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Latest Episodes Section -->
-<section class="latest-episodes-section">
+<section class="latest-episodes-section" aria-labelledby="episodes-title">
   <div class="container">
     <div class="section-header">
-      <h2>Latest Episodes</h2>
-      <a routerLink="/episodes" class="view-all-link">View All Episodes</a>
+      <h2 id="episodes-title">Latest Episodes</h2>
+      <a routerLink="/episodes" class="view-all-link" aria-label="View all episodes">View All Episodes</a>
     </div>
     
     @if (latestEpisodes.length > 0) {
-      <div class="episodes-grid">
+      <div class="episodes-grid" role="list" aria-label="Latest episodes">
         @for (episode of latestEpisodes; track episode.id) {
-          <div class="episode-card">
+          <article class="episode-card" role="listitem">
             <div class="episode-image">
-              <a [routerLink]="['/episodes', episode.id]">
+              <a [routerLink]="['/episodes', episode.id]" [attr.aria-label]="'View details for ' + episode.title">
                 @if (episode.img_url) {
-                  <img [src]="episode.img_url" [alt]="episode.title" />
+                  <img [src]="episode.img_url" [alt]="'Album art for ' + episode.title" />
                 } @else {
-                  <div class="placeholder-image">🎵</div>
+                  <div class="placeholder-image" aria-label="No album art available">🎵</div>
                 }
               </a>
-              <button class="play-button" (click)="togglePlayPause(episode)">
+              <button 
+                class="play-button" 
+                (click)="togglePlayPause(episode)"
+                [attr.aria-label]="isCurrentEpisodePlaying(episode) ? 'Pause ' + episode.title : 'Play ' + episode.title"
+                [attr.aria-pressed]="isCurrentEpisodePlaying(episode)">
                 @if (isCurrentEpisodePlaying(episode)) {
-                  <span>⏸️</span>
+                  <span aria-hidden="true">⏸️</span>
                 } @else {
-                  <span>▶️</span>
+                  <span aria-hidden="true">▶️</span>
                 }
               </button>
             </div>
@@ -46,15 +50,15 @@
               </h3>
               <p class="episode-description">{{ episode.description }}</p>
               <div class="episode-meta">
-                <span class="duration">{{ episode.duration }}</span>
-                <span class="episode-number">S{{ episode.season }} E{{ episode.episode }}</span>
+                <span class="duration" aria-label="Duration">{{ episode.duration }}</span>
+                <span class="episode-number" aria-label="Episode number">S{{ episode.season }} E{{ episode.episode }}</span>
               </div>
             </div>
-          </div>
+          </article>
         }
       </div>
     } @else {
-      <div class="no-episodes">
+      <div class="no-episodes" role="status" aria-live="polite">
         <p>No episodes available at the moment.</p>
       </div>
     }

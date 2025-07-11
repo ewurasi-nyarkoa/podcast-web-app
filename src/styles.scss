@@ -1,111 +1,150 @@
 /* You can add global styles to this file, and also import other style files */
 
 // Responsive breakpoints
-$mobile: 480px;
-$tablet: 768px;
-$desktop: 1024px;
-$large: 1200px;
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
 
+// Theme colors
 :root {
-  /* Light theme colors - subtle */
-  --color-bg: #f5f6fa;
-  --color-surface: #ffffff;
-  --color-surface-alt: #f0f1f6;
-  --color-text: #23272f;
-  --color-text-secondary: #7a7f87;
-  --color-border: #e3e6ed;
-  --color-primary: #5b7cfa;
-  --color-primary-contrast: #fff;
-  --color-accent: #e8edfa;
-  --color-success: #6fcf97;
-  --color-warning: #ffe29a;
-  --color-danger: #ffb4b4;
-  --color-muted: #f3f5fa;
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --accent-color: #ff6b6b;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --background-primary: #ffffff;
+  --background-secondary: #f8f9fa;
+  --border-color: #e9ecef;
+  --success-color: #28a745;
+  --error-color: #dc3545;
+  --warning-color: #ffc107;
 }
 
-html, body {
-  height: 100%;
+// Dark theme
+[data-theme="dark"] {
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --background-primary: #1a1a1a;
+  --background-secondary: #2d2d2d;
+  --border-color: #404040;
+}
+
+// Body styling
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+// Accessibility improvements
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
-body.light-theme {
-  /* Light theme variables - subtle */
-  --color-bg: #f5f6fa;
-  --color-surface: #ffffff;
-  --color-surface-alt: #f0f1f6;
-  --color-text: #23272f;
-  --color-text-secondary: #7a7f87;
-  --color-border: #e3e6ed;
-  --color-primary: #5b7cfa;
-  --color-primary-contrast: #fff;
-  --color-accent: #e8edfa;
-  --color-success: #6fcf97;
-  --color-warning: #ffe29a;
-  --color-danger: #ffb4b4;
-  --color-muted: #f3f5fa;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+// Focus indicators for keyboard navigation
+*:focus {
+  outline: 2px solid var(--primary-color) !important;
+  outline-offset: 2px !important;
 }
 
-body.dark-theme {
-  /* Dark theme variables - subtle */
-  --color-bg: #181a20;
-  --color-surface: #23262e;
-  --color-surface-alt: #22242b;
-  --color-text: #f5f6fa;
-  --color-text-secondary: #b0b3bb;
-  --color-border: #23262e;
-  --color-primary: #7b9cff;
-  --color-primary-contrast: #181a20;
-  --color-accent: #232e4a;
-  --color-success: #57d9a3;
-  --color-warning: #ffd580;
-  --color-danger: #ff6b81;
-  --color-muted: #23262e;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+// Skip link for keyboard users
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.3s;
+}
 
-  // Override Material components for dark theme
-  .mat-mdc-card {
-    background-color: var(--color-surface) !important;
-    color: var(--color-text) !important;
+.skip-link:focus {
+  top: 6px;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --background-primary: #ffffff;
+    --border-color: #000000;
   }
-  .mat-mdc-form-field {
-    color: var(--color-text) !important;
+  
+  [data-theme="dark"] {
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --background-primary: #000000;
+    --border-color: #ffffff;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 // Responsive utilities
-@media (max-width: #{$mobile}) {
-  .hide-mobile { display: none !important; }
+.hide-mobile {
+  @media (max-width: $mobile) {
+    display: none !important;
+  }
 }
 
-@media (max-width: #{$tablet}) {
-  .hide-tablet { display: none !important; }
+.hide-tablet {
+  @media (min-width: $mobile + 1) and (max-width: $tablet) {
+    display: none !important;
+  }
 }
 
-@media (min-width: #{$tablet + 1}) {
-  .hide-desktop { display: none !important; }
+.hide-desktop {
+  @media (min-width: $tablet + 1) {
+    display: none !important;
+  }
 }
 
 // Container utilities
 .container {
-  max-width: $large;
+  max-width: $desktop;
   margin: 0 auto;
-  padding: 0 16px;
-  
-  @media (max-width: #{$tablet}) {
-    padding: 0 12px;
+  padding: 0 20px;
+}
+
+// Material Design overrides for dark theme
+[data-theme="dark"] {
+  .mat-mdc-card {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
   }
   
-  @media (max-width: #{$mobile}) {
-    padding: 0 8px;
+  .mat-mdc-form-field {
+    color: var(--text-primary);
+  }
+  
+  .mat-mdc-button {
+    color: var(--text-primary);
+  }
+  
+  .mat-mdc-toolbar {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
   }
 }

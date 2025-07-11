@@ -1,0 +1,71 @@
+<div class="resource-not-found-container">
+  <div class="resource-not-found-content">
+    <mat-card class="resource-not-found-card">
+      <div class="error-illustration">
+        <mat-icon class="error-icon" aria-hidden="true">search_off</mat-icon>
+        <div class="error-title">{{ resourceType.charAt(0).toUpperCase() + resourceType.slice(1) }} Not Found</div>
+      </div>
+      
+      <div class="error-content">
+        <p class="error-message">
+          {{ message }}
+        </p>
+        
+        <div class="suggestions">
+          <h3>Here are some things you can try:</h3>
+          <ul>
+            <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
+          </ul>
+        </div>
+        
+        <div class="action-buttons" role="group" aria-label="Navigation options">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            [routerLink]="primaryActionRoute"
+            class="primary-btn"
+            [attr.aria-label]="primaryActionText">
+            <mat-icon aria-hidden="true">{{ primaryActionIcon }}</mat-icon>
+            {{ primaryActionText }}
+          </button>
+          
+          <button 
+            *ngIf="showBackButton"
+            mat-stroked-button 
+            (click)="goBack()"
+            class="back-btn"
+            aria-label="Go back to previous page">
+            <mat-icon aria-hidden="true">arrow_back</mat-icon>
+            Go Back
+          </button>
+        </div>
+        
+        <div class="quick-links">
+          <h3>Quick Navigation</h3>
+          <div class="links-grid">
+            <a mat-button routerLink="/" class="quick-link">
+              <mat-icon aria-hidden="true">home</mat-icon>
+              Home
+            </a>
+            <a mat-button routerLink="/episodes" class="quick-link">
+              <mat-icon aria-hidden="true">headphones</mat-icon>
+              Episodes
+            </a>
+            <a mat-button routerLink="/playlists" class="quick-link">
+              <mat-icon aria-hidden="true">playlist_play</mat-icon>
+              Playlists
+            </a>
+            <a mat-button routerLink="/confessions" class="quick-link">
+              <mat-icon aria-hidden="true">message</mat-icon>
+              Confessions
+            </a>
+            <a mat-button routerLink="/team" class="quick-link">
+              <mat-icon aria-hidden="true">group</mat-icon>
+              Team
+            </a>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div> 

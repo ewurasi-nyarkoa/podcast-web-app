@@ -1,11 +1,14 @@
 <div class="app-layout">
 
+  <!-- Skip link for keyboard users -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <app-header *ngIf="showHeaderFooter"></app-header>
 
   <app-audio-player></app-audio-player>
 
   
-  <main class="main-content">
+  <main id="main-content" class="main-content" role="main">
     <router-outlet></router-outlet>
   </main>
   

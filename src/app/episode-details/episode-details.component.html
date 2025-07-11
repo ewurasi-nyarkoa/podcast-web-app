@@ -1,7 +1,13 @@
 @if (loading) {
-  <div>Loading episode...</div>
-} @else if (error) {
-  <div>{{ error }}</div>
+  <div class="loading-container">
+    <div class="loading-spinner">Loading episode...</div>
+  </div>
+} @else if (error && !episode) {
+  <app-resource-not-found 
+    resourceType="episode" 
+    [resourceId]="episodeId"
+    [customMessage]="error">
+  </app-resource-not-found>
 } @else if (!loading && episode) {
   <div class="episode-details-card">
     <div class="episode-art">

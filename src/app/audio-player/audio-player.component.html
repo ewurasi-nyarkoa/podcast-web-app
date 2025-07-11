@@ -1,25 +1,42 @@
 @if (showPlayer) {
-  <div class="audio-player" *ngIf="(currentEpisode$ | async) as episode">
+  <div class="audio-player" *ngIf="(currentEpisode$ | async) as episode" role="region" aria-label="Audio player">
     <div class="audio-info">
-      <strong>{{ episode.title }}</strong>
+      <strong id="episode-title">{{ episode.title }}</strong>
     </div>
-    <div class="audio-controls">
-      <button (click)="togglePlayPause()">
+    <div class="audio-controls" role="group" aria-label="Audio controls">
+      <button 
+        (click)="togglePlayPause()"
+        [attr.aria-label]="(isPlaying$ | async) ? 'Pause episode' : 'Play episode'"
+        [attr.aria-pressed]="(isPlaying$ | async)"
+        aria-describedby="episode-title">
         <span *ngIf="(isPlaying$ | async); else playIcon">Pause</span>
         <ng-template #playIcon>Play</ng-template>
       </button>
-      <button (click)="cancel()" title="Close Player" style="background:#232323;color:#fff;border-radius:50%;width:44px;height:44px;font-size:1.2rem;margin-left:0.5rem;">
+      <button 
+        (click)="cancel()" 
+        title="Close Player" 
+        aria-label="Close audio player"
+        style="background:#232323;color:#fff;border-radius:50%;width:44px;height:44px;font-size:1.2rem;margin-left:0.5rem;">
         ✕
       </button>
-      <span>{{ formatTime((currentTime$ | async) || 0) }}</span>
+      <span class="sr-only">Current time:</span>
+      <span aria-live="polite" aria-label="Current time">{{ formatTime((currentTime$ | async) || 0) }}</span>
+      <label for="seek-slider" class="sr-only">Seek to position</label>
       <input
+        id="seek-slider"
         type="range"
         min="0"
         [max]="(duration$ | async) || 0"
         [value]="(currentTime$ | async) || 0"
         (input)="seekFromInput($event)"
+        aria-label="Seek to position in episode"
+        aria-valuemin="0"
+        [attr.aria-valuemax]="(duration$ | async) || 0"
+        [attr.aria-valuenow]="(currentTime$ | async) || 0"
+        [attr.aria-valuetext]="'Position ' + formatTime((currentTime$ | async) || 0) + ' of ' + formatTime((duration$ | async) || 0)"
       />
-      <span>{{ formatTime((duration$ | async) || 0) }}</span>
+      <span class="sr-only">Duration:</span>
+      <span aria-label="Total duration">{{ formatTime((duration$ | async) || 0) }}</span>
     </div>
   </div>
 }

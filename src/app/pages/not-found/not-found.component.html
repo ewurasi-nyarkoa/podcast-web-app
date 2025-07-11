@@ -1,0 +1,70 @@
+<div class="not-found-container">
+  <div class="not-found-content">
+    <mat-card class="not-found-card">
+      <div class="error-illustration">
+        <mat-icon class="error-icon" aria-hidden="true">search_off</mat-icon>
+        <div class="error-number">404</div>
+      </div>
+      
+      <div class="error-content">
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-message">
+          Oops! The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.
+        </p>
+        
+        <div class="suggestions">
+          <h2>Here are some things you can try:</h2>
+          <ul>
+            <li>Check the URL for typos</li>
+            <li>Go back to the previous page</li>
+            <li>Visit our homepage to explore our content</li>
+            <li>Browse our episodes or playlists</li>
+          </ul>
+        </div>
+        
+        <div class="action-buttons" role="group" aria-label="Navigation options">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            routerLink="/"
+            class="home-btn"
+            aria-label="Go to homepage">
+            <mat-icon aria-hidden="true">home</mat-icon>
+            Go Home
+          </button>
+          
+          <button 
+            mat-stroked-button 
+            (click)="goBack()"
+            class="back-btn"
+            aria-label="Go back to previous page">
+            <mat-icon aria-hidden="true">arrow_back</mat-icon>
+            Go Back
+          </button>
+        </div>
+        
+        <div class="quick-links">
+          <h3>Quick Links</h3>
+          <div class="links-grid">
+            <a mat-button routerLink="/episodes" class="quick-link">
+              <mat-icon aria-hidden="true">headphones</mat-icon>
+              Episodes
+            </a>
+            <a mat-button routerLink="/playlists" class="quick-link">
+              <mat-icon aria-hidden="true">playlist_play</mat-icon>
+              Playlists
+            </a>
+            <a mat-button routerLink="/confessions" class="quick-link">
+              <mat-icon aria-hidden="true">message</mat-icon>
+              Confessions
+            </a>
+            <a mat-button routerLink="/team" class="quick-link">
+              <mat-icon aria-hidden="true">group</mat-icon>
+              Team
+            </a>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div> 

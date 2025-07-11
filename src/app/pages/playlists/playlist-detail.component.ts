@@ -5,11 +5,12 @@ import { PlaylistsService } from '../../core/services/playlists/playlists.servic
 import { AudioPlayerService } from '../../core/services/audio-player/audio-player.service';
 import { Playlist } from '../../core/interfaces/playlist';
 import { Episode } from '../../core/interfaces/episodes';
+import { ResourceNotFoundComponent } from '../../shared/components/resource-not-found/resource-not-found.component';
 
 @Component({
   selector: 'app-playlist-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ResourceNotFoundComponent],
   templateUrl: './playlist-detail.component.html',
   styleUrls: ['./playlist-detail.component.scss']
 })
@@ -19,6 +20,7 @@ export class PlaylistDetailComponent implements OnInit {
   error: string | null = null;
   isPlaying = false;
   currentEpisodeId: number | null = null;
+  playlistId?: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +32,7 @@ export class PlaylistDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       const playlistId = params['id'];
+      this.playlistId = playlistId;
       if (playlistId) {
         this.loadPlaylist(playlistId);
       }
