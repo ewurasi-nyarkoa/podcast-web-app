@@ -12,6 +12,55 @@
   </div>
 </section>
 
+<!-- Latest Episodes Section -->
+<section class="latest-episodes-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Latest Episodes</h2>
+      <a routerLink="/episodes" class="view-all-link">View All Episodes</a>
+    </div>
+    
+    @if (latestEpisodes.length > 0) {
+      <div class="episodes-grid">
+        @for (episode of latestEpisodes; track episode.id) {
+          <div class="episode-card">
+            <div class="episode-image">
+              <a [routerLink]="['/episodes', episode.id]">
+                @if (episode.img_url) {
+                  <img [src]="episode.img_url" [alt]="episode.title" />
+                } @else {
+                  <div class="placeholder-image">🎵</div>
+                }
+              </a>
+              <button class="play-button" (click)="togglePlayPause(episode)">
+                @if (isCurrentEpisodePlaying(episode)) {
+                  <span>⏸️</span>
+                } @else {
+                  <span>▶️</span>
+                }
+              </button>
+            </div>
+            <div class="episode-content">
+              <h3 class="episode-title">
+                <a [routerLink]="['/episodes', episode.id]">{{ episode.title }}</a>
+              </h3>
+              <p class="episode-description">{{ episode.description }}</p>
+              <div class="episode-meta">
+                <span class="duration">{{ episode.duration }}</span>
+                <span class="episode-number">S{{ episode.season }} E{{ episode.episode }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="no-episodes">
+        <p>No episodes available at the moment.</p>
+      </div>
+    }
+  </div>
+</section>
+
 <!-- Team Section - Carousel with 3 members per slide -->
 <app-team-display 
   [enableCarousel]="true"
